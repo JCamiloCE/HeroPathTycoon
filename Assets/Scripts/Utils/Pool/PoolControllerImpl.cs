@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace Utils.Pool 
 { 
-    public class PoolControllerImpl : IPoolController
+    public class PoolControllerImpl<TType> : IPoolController<TType> where TType : MonoBehaviour
     {
         private bool _expandPool = false;
         private List<PoolObject> _poolObjects = null;
+        private List<TType> _poolSpecificObjects = null;
 
         public int GetCurrentPoolSize() => _poolObjects.Count;
 
@@ -15,41 +16,59 @@ namespace Utils.Pool
         {
             _expandPool = expandPool;
             _poolObjects = new List<PoolObject>();
+            _poolSpecificObjects = new List<TType>();
 
             if (poolSize <= 0) 
                 throw new ArgumentException("poolSize must be greater than zero", "poolSize");
             if (initialPoolObject == null)
                 throw new ArgumentException("initialPoolObject is missing", "initialPoolObject");
+            if (initialPoolObject.GetComponent<TType>() == null)
+                throw new ArgumentException("initialPoolObject doesnt have the " + nameof(TType), "initialPoolObject");
 
             for (int i = 0; i < poolSize; i++)
             {
-                _poolObjects.Add(CreateNewPoolObject(initialPoolObject));
+                PoolObject newPoolObj = CreateNewPoolObject(initialPoolObject);
+                _poolObjects.Add(newPoolObj);
+                _poolSpecificObjects.Add(newPoolObj.GetComponent<TType>());
             }
         }
 
-        public PoolObject GetPoolObject() 
+        public TType GetPoolObject() 
         {
-            PoolObject poolObj = _poolObjects.Find(x => x.IsAvailable);
+            int index = _poolObjects.FindIndex(x => x.IsAvailable);
 
-            if (poolObj == null && _expandPool) 
+            if (index == -1 && _expandPool) 
             {
-                poolObj = CreateNewPoolObject(_poolObjects[0].gameObject);
-                _poolObjects.Add(poolObj);
+                AddNewElementIntoThePool(_poolObjects[0].gameObject);
+                index = _poolObjects.Count - 1;
             }
 
-            poolObj?.ActivatePoolObject();
-            return poolObj;
+            if (index == -1) 
+                throw new NullReferenceException("PoolObject wasnt found");
+
+            _poolObjects[index].ActivatePoolObject();
+            return _poolSpecificObjects[index];
         }
 
-        public void ReturnToPool(PoolObject newPoolObj) 
+        public void ReturnToPool(TType newPoolObj) 
         {
             if (newPoolObj == null)
                 throw new ArgumentException("newPoolObj is Null", "newPoolObj");
 
-            if(_poolObjects.Contains(newPoolObj))
-                newPoolObj.ReturnPoolObject();
+            if (_poolSpecificObjects.Contains(newPoolObj)) 
+            {
+                int index = _poolSpecificObjects.IndexOf(newPoolObj);
+                _poolObjects[index].ReturnPoolObject();
+            }
             else
                 throw new ArgumentException("newPoolObj ", "newPoolObj");
+        }
+
+        private void AddNewElementIntoThePool(GameObject initialPoolObject) 
+        {
+            PoolObject newPoolObj = CreateNewPoolObject(initialPoolObject);
+            _poolObjects.Add(newPoolObj);
+            _poolSpecificObjects.Add(newPoolObj.GetComponent<TType>());
         }
 
         private PoolObject CreateNewPoolObject(GameObject initialPoolObject) 

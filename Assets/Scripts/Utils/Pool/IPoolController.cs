@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Utils.Pool
 {
-    public interface IPoolController
+    public interface IPoolController<TType> where TType : MonoBehaviour
     {
         public void SetPoolObject(GameObject initialPoolObject, int poolSize, bool expandPool);
-        public PoolObject GetPoolObject();
-        public void ReturnToPool(PoolObject newPoolObj);
+        public TType GetPoolObject();
+        public void ReturnToPool(TType newPoolObj);
         public int GetCurrentPoolSize();
     }
 }

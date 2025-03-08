@@ -12,7 +12,7 @@ namespace Heros
 
         private IRandom _random;
         private HeroDataScriptableObject _heroDataScriptableObject = null;
-        private PoolControllerImpl _poolController = null;
+        private PoolControllerImpl<HeroController> _poolController = null;
 
         private void Awake()
         {
@@ -23,7 +23,7 @@ namespace Heros
 
         public void SpawnNewHero()
         {
-            HeroController newHero = _poolController.GetPoolObject().GetComponent<HeroController>();
+            HeroController newHero = _poolController.GetPoolObject();
 
             if (!newHero.WasInitialized())
             {
@@ -36,7 +36,7 @@ namespace Heros
 
         private void CreatePoolOfHeros() 
         {
-            _poolController = new PoolControllerImpl();
+            _poolController = new PoolControllerImpl<HeroController>();
             _poolController.SetPoolObject(_heroControllerBase, 5, true);
         }
     }
