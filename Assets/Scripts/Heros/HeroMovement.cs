@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using Utils.Random;
 
@@ -7,7 +9,9 @@ namespace Heros
     {
         private bool _wasInitialized = false;
         private Transform _heroTransform = null;
-        private IRandom _random;
+        private IRandom _random = null;
+        private Action _finishMovement = null;
+        private Coroutine _currentMovement = null;
 
         public bool WasInitialized() => _wasInitialized;
 
@@ -19,7 +23,6 @@ namespace Heros
             _random = parameters[0] as IRandom;
 
             _heroTransform = gameObject.transform;
-
             _wasInitialized = true;
             return true;
         }
@@ -29,6 +32,42 @@ namespace Heros
         {
             initialPosition.x = _random.GetRandomFloatBetween(initialPosition.x - 1f, initialPosition.x + 1f);
             _heroTransform.position = initialPosition;
+        }
+
+        internal void GoToNewPosition(Action finishMovement, Vector3 targetPosition, float moveSpeed) 
+        {
+            _finishMovement = finishMovement;
+            StopCurrentMovement();
+            _currentMovement = StartCoroutine(MoveObject(targetPosition, moveSpeed));
+        }
+
+        private void StopCurrentMovement()
+        {
+            if (_currentMovement != null)
+            {
+                StopCoroutine(_currentMovement);
+                _currentMovement = null;
+            }
+        }
+
+        private IEnumerator MoveObject(Vector3 targetPosition, float moveSpeed)
+        {
+            Vector3 startPosition = _heroTransform.position;
+            float distance = Vector3.Distance(startPosition, targetPosition);
+            float finishTime = distance/moveSpeed;
+            float timeElapsed = 0f;
+
+            while (timeElapsed < finishTime)
+            {
+                _heroTransform.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / finishTime);
+                timeElapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            if (_finishMovement != null) 
+                _finishMovement.Invoke();
+            else
+                throw new NullReferenceException("_finishMovement callback is null");
         }
     }
 }

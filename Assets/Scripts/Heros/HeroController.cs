@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Utils.Random;
 
@@ -24,9 +25,20 @@ namespace Heros
             return true;
         }
 
-        public void ActiveCurrentHero() 
+        public void SetNewHeroData(HeroData heroData)
+        {
+            _heroArt.SetNewHeroData(heroData.GetHeroSprite);
+        }
+
+        public void ActiveCurrentHero(Vector3 targetPosition, float moveSpeed) 
         {
             _heroArt.ActiveCurrentHero();
+            _heroMovement.GoToNewPosition(FinishMovement, targetPosition, moveSpeed);
+        }
+
+        private void FinishMovement() 
+        {
+            Debug.Log("FinishMovement");
         }
 
         public void Update()
@@ -41,7 +53,7 @@ namespace Heros
 
         public void EvolveHero(HeroData heroData) 
         {
-            _heroArt.EvolveHero(heroData);
+            _heroArt.EvolveHero(heroData.GetHeroSprite);
         }
 
         private void InitializeMovementComponent(IRandom random, Vector3 initialPosition) 
@@ -54,7 +66,7 @@ namespace Heros
         private void InitializeHeroArtComponent(HeroData heroData) 
         {
             _heroArt = gameObject.GetComponent<HeroArt>();
-            _heroArt.Initialization(heroData);
+            _heroArt.Initialization(heroData.GetHeroSprite);
         }
     }
 }

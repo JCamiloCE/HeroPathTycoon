@@ -24,14 +24,14 @@ namespace Heros
         public void SpawnNewHero()
         {
             HeroController newHero = _poolController.GetPoolObject();
+            HeroData heroData = _heroDataScriptableObject.GetHeroDataByFamily(EHeroFamily.Candidate);
 
             if (!newHero.WasInitialized())
-            {
-                HeroData heroData = _heroDataScriptableObject.GetHeroDataByFamily(EHeroFamily.Candidate);
                 newHero.Initialization(_mapManager.SelectHeroSpawnPoint(), _random, heroData);
-            }
+            else
+                newHero.SetNewHeroData(heroData);
 
-            newHero.ActiveCurrentHero();
+            newHero.ActiveCurrentHero(_mapManager.GetPositionToWaitInLobby(), heroData.GetHeroSpeed);
         }
 
         private void CreatePoolOfHeros() 

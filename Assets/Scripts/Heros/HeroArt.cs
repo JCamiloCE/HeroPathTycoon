@@ -7,7 +7,6 @@ namespace Heros
     {
         private bool _wasInitialized = false;
         private SpriteRenderer _spriteRenderer = null;
-        private HeroData _heroData = null;
         private SpriteFadeProcessor _fadeProcessor = null;
 
         public bool WasInitialized() => _wasInitialized;
@@ -17,8 +16,8 @@ namespace Heros
             if (_wasInitialized)
                 return false;
 
-            _heroData = parameters[0] as HeroData;
-            CreateSpriteRenderComponent();
+            Sprite heroSprite = parameters[0] as Sprite;
+            CreateSpriteRenderComponent(heroSprite);
 
             _wasInitialized = true;
             return true;
@@ -30,19 +29,23 @@ namespace Heros
             _fadeProcessor.StartFadeIn(2f);
         }
 
-        public void EvolveHero(HeroData heroData)
+        public void EvolveHero(Sprite heroSprite)
         {
-            _heroData = heroData;
-            _spriteRenderer.sprite = _heroData.GetHeroSprite;
+            _spriteRenderer.sprite = heroSprite;
         }
 
-        private void CreateSpriteRenderComponent()
+        public void SetNewHeroData(Sprite heroSprite)
+        {
+            _spriteRenderer.sprite = heroSprite;
+        }
+
+        private void CreateSpriteRenderComponent(Sprite heroSprite)
         {
             _spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
             _fadeProcessor = gameObject.GetComponent<SpriteFadeProcessor>();
             _fadeProcessor.Initialization(_spriteRenderer);
             _fadeProcessor.SetAlpha(0f);
-            _spriteRenderer.sprite = _heroData.GetHeroSprite;
+            _spriteRenderer.sprite = heroSprite;
         }
     }
 }

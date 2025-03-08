@@ -31,14 +31,14 @@ namespace Utils.Art
         {
             _currentFadeDuration = fadeDuration;
             StopCurrentCoroutine();
-            _currentCoroutine = StartCoroutine("FadeIn");
+            _currentCoroutine = StartCoroutine(FadeIn());
         }
 
         public void StartFadeOut(float fadeDuration)
         {
             _currentFadeDuration = fadeDuration;
             StopCurrentCoroutine();
-            _currentCoroutine = StartCoroutine("FadeOut");
+            _currentCoroutine = StartCoroutine(FadeOut());
         }
 
         private void StopCurrentCoroutine() 
