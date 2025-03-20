@@ -13,13 +13,15 @@ namespace Buildings
         private Coroutine _moveQueueCoroutine = null;
         private Coroutine _heroProcessorCoroutine = null;
         private MapManager _mapManager = null;
+        private BuildingArt _buildingArt = null;
         private float _timeToProcess = 1;
         private bool _wasInitialized = false;
 
         public bool Initialization(params object[] parameters)
         {
             _mapManager = parameters[0] as MapManager;
-            _timeToProcess = (float)parameters[1];
+            _buildingArt = parameters[1] as BuildingArt;
+            _timeToProcess = (float)parameters[2];
             _heroControllers = new ();
             _wasInitialized = true;
             return _wasInitialized;
@@ -85,6 +87,7 @@ namespace Buildings
         {
             while(_currentHero != null) 
             {
+                _buildingArt.StartProcess(_timeToProcess);
                 yield return new WaitForSeconds(_timeToProcess);
                 _currentHero.MoveToNewPoint(new Vector3(0f,10f), null); //temp
                 _currentHero = null;

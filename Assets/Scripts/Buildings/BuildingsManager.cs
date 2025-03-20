@@ -7,6 +7,7 @@ namespace Buildings
 {
     public class BuildingsManager : MonoBehaviour
     {
+        [SerializeField] private GameObject _buildingControllerBase;
         [SerializeField] private MapManager _mapManager;
 
         private BuildingsDataScriptableObject _buildingsDataScriptableObject = null;
@@ -23,12 +24,14 @@ namespace Buildings
             _buildings = new ();
 
             //While the prototype we create the Lobby and Barracks
-            BuildingController lobby = new BuildingController();
+            GameObject objLobby = Instantiate(_buildingControllerBase);
+            BuildingController lobby = objLobby.GetComponent<BuildingController>();
             BuildingData data = _buildingsDataScriptableObject.GetBuildingDataByBuildingType(EBuildingType.Lobby);
             lobby.Initialization(data, _mapManager, EBuildingType.Lobby);
             _buildings.Add(EBuildingType.Lobby, lobby);
 
-            BuildingController barracks = new BuildingController();
+            GameObject objBarracks = Instantiate(_buildingControllerBase);
+            BuildingController barracks = objBarracks.GetComponent<BuildingController>();
             data = _buildingsDataScriptableObject.GetBuildingDataByBuildingType(EBuildingType.Barracks);
             barracks.Initialization(data, _mapManager, EBuildingType.Barracks);
             _buildings.Add(EBuildingType.Barracks, barracks);

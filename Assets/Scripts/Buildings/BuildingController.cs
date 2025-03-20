@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Buildings
 {
-    public class BuildingController : ILifeCycle
+    public class BuildingController : MonoBehaviour, ILifeCycle
     {
         private BuildingHeroProcessor _heroProcessor = null;
+        private BuildingArt _buildingArt = null;
         private bool _wasInitialized = false;
         private EBuildingType _buildingType = EBuildingType.None;
 
@@ -41,13 +42,15 @@ namespace Buildings
 
         private void CreateBuilding(MapManager mapManager, BuildingData buildingData) 
         {
-            GameObject buildingGameObject = new GameObject("Building");
-            buildingGameObject.transform.position = GetInitialPosition(mapManager);
-            SpriteRenderer spriteRenderer = buildingGameObject.AddComponent<SpriteRenderer>();
+            transform.position = GetInitialPosition(mapManager);
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = buildingData.GetBuildingInitialSprite;
 
-            _heroProcessor = buildingGameObject.AddComponent<BuildingHeroProcessor>();
-            _heroProcessor.Initialization(mapManager, buildingData.GetBuildingTimeToProcess);
+            _buildingArt = GetComponent<BuildingArt>();
+            _buildingArt.Initialization();
+
+            _heroProcessor = GetComponent<BuildingHeroProcessor>();
+            _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess);
         }
 
         internal void AddHeroToQueue(HeroController heroController) 
