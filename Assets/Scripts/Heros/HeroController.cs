@@ -1,4 +1,5 @@
-using System.Runtime.CompilerServices;
+using Buildings;
+using System;
 using UnityEngine;
 using Utils.Random;
 
@@ -6,8 +7,10 @@ namespace Heros
 {
     public class HeroController : MonoBehaviour, ILifeCycle
     {
+        private BuildingsManager _buildingsManager;
         private HeroMovement _heroMovement = null;
         private HeroArt _heroArt = null;
+        private float _heroSpeed = 1.0f;
         private bool _wasInitialzed = false;
 
         public bool WasInitialized() => _wasInitialzed;
@@ -17,6 +20,7 @@ namespace Heros
             Vector3 initialPosition = (Vector3)parameters[0];
             IRandom random = parameters[1] as IRandom;
             HeroData heroData = parameters[2] as HeroData;
+            _buildingsManager = parameters[3] as BuildingsManager;
 
             InitializeMovementComponent(random, initialPosition);
             InitializeHeroArtComponent(heroData);
@@ -28,32 +32,23 @@ namespace Heros
         public void SetNewHeroData(HeroData heroData)
         {
             _heroArt.SetNewHeroData(heroData.GetHeroSprite);
+            _heroSpeed = heroData.GetHeroSpeed;
         }
 
-        public void ActiveCurrentHero(Vector3 targetPosition, float moveSpeed) 
+        public void ActiveCurrentHero(Vector3 targetPosition) 
         {
             _heroArt.ActiveCurrentHero();
-            _heroMovement.GoToNewPosition(FinishMovement, targetPosition, moveSpeed);
-        }
-
-        private void FinishMovement() 
-        {
-            Debug.Log("FinishMovement");
-        }
-
-        public void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                HeroDataScriptableObject heroDataScriptableObject = Resources.Load<HeroDataScriptableObject>("Scriptables/HerosDataScriptableObject");
-                HeroData heroData = heroDataScriptableObject.GetHeroDataByFamily(EHeroFamily.Warrior);
-                EvolveHero(heroData);
-            }
+            _heroMovement.GoToNewPosition(FinishStartMovement, targetPosition, _heroSpeed);
         }
 
         public void EvolveHero(HeroData heroData) 
         {
             _heroArt.EvolveHero(heroData.GetHeroSprite);
+        }
+
+        public void MoveToNewPoint(Vector3 targetPosition, Action finishHeroMovement) 
+        {
+            _heroMovement.GoToNewPosition(finishHeroMovement, targetPosition, _heroSpeed);
         }
 
         private void InitializeMovementComponent(IRandom random, Vector3 initialPosition) 
@@ -67,6 +62,23 @@ namespace Heros
         {
             _heroArt = gameObject.GetComponent<HeroArt>();
             _heroArt.Initialization(heroData.GetHeroSprite);
+        }
+
+        private void FinishStartMovement()
+        {
+            _buildingsManager.AddHeroToBuilding(EBuildingType.Lobby, this);
+        }
+
+        //=================
+        //=================
+        public void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                HeroDataScriptableObject heroDataScriptableObject = Resources.Load<HeroDataScriptableObject>("Scriptables/HerosDataScriptableObject");
+                HeroData heroData = heroDataScriptableObject.GetHeroDataByFamily(EHeroFamily.Warrior);
+                EvolveHero(heroData);
+            }
         }
     }
 }

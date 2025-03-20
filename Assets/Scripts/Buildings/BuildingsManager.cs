@@ -1,4 +1,6 @@
+using Heros;
 using Map;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Buildings 
@@ -8,6 +10,7 @@ namespace Buildings
         [SerializeField] private MapManager _mapManager;
 
         private BuildingsDataScriptableObject _buildingsDataScriptableObject = null;
+        private Dictionary<EBuildingType, BuildingController> _buildings;
 
         private void Awake()
         {
@@ -17,14 +20,23 @@ namespace Buildings
 
         private void CreateInitialBuildings() 
         {
+            _buildings = new ();
+
             //While the prototype we create the Lobby and Barracks
             BuildingController lobby = new BuildingController();
             BuildingData data = _buildingsDataScriptableObject.GetBuildingDataByBuildingType(EBuildingType.Lobby);
-            lobby.Initialization(data, _mapManager.GetPositionForLobby());
+            lobby.Initialization(data, _mapManager, EBuildingType.Lobby);
+            _buildings.Add(EBuildingType.Lobby, lobby);
 
             BuildingController barracks = new BuildingController();
             data = _buildingsDataScriptableObject.GetBuildingDataByBuildingType(EBuildingType.Barracks);
-            barracks.Initialization(data, _mapManager.GetPositionForBarracks());
+            barracks.Initialization(data, _mapManager, EBuildingType.Barracks);
+            _buildings.Add(EBuildingType.Barracks, barracks);
+        }
+
+        public void AddHeroToBuilding(EBuildingType buildingType, HeroController heroController) 
+        {
+            _buildings[buildingType].AddHeroToQueue(heroController);
         }
     }
 }

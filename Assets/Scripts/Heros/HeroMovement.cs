@@ -64,10 +64,7 @@ namespace Heros
                 yield return null;
             }
 
-            if (_finishMovement != null) 
-                _finishMovement.Invoke();
-            else
-                throw new NullReferenceException("_finishMovement callback is null");
+            _finishMovement?.Invoke();
         }
     }
 }

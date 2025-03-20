@@ -8,6 +8,7 @@ namespace Map
     {
         [SerializeField] private Transform _positionForLobby = null;
         [SerializeField] private Transform _positionToWaitInLobby = null;
+        [SerializeField] private Transform _positionToStartQueue = null;
         [SerializeField] private Transform _positionForBarracks = null;
         [SerializeField] private List<Transform> _spawnPointsHero = null;
 
@@ -21,6 +22,7 @@ namespace Map
         public Vector3 GetPositionForLobby() => _positionForLobby.position;
         public Vector3 GetPositionForBarracks() => _positionForBarracks.position;
         public Vector3 GetPositionToWaitInLobby() => _positionToWaitInLobby.position;
+        public Vector3 GetPositionToStartQueue() => _positionToStartQueue.position;
 
         public Vector3 SelectHeroSpawnPoint()
         {

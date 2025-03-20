@@ -1,29 +1,58 @@
+using Heros;
+using Map;
 using UnityEngine;
 
 namespace Buildings
 {
     public class BuildingController : ILifeCycle
     {
-        private BuildingData _buildingData = null;
+        private BuildingHeroProcessor _heroProcessor = null;
         private bool _wasInitialized = false;
+        private EBuildingType _buildingType = EBuildingType.None;
 
         public bool WasInitialized() => _wasInitialized;
 
         public bool Initialization(params object[] parameters)
         {
-            _buildingData = parameters[0] as BuildingData;
-            Vector3 buildingPosition = (Vector3)parameters[1];
-            CreateBuilding(buildingPosition);
+            BuildingData buildingData = parameters[0] as BuildingData;
+            MapManager mapManager = parameters[1] as MapManager;
+            _buildingType = (EBuildingType)parameters[2];
+            CreateBuilding(mapManager, buildingData);
             _wasInitialized = true;
             return true;
         }
 
-        private void CreateBuilding(Vector3 initialPosition) 
+        private Vector3 GetInitialPosition(MapManager mapManager) 
+        {
+            switch (_buildingType) 
+            {
+                case EBuildingType.Lobby:
+                    return mapManager.GetPositionForLobby();
+
+                case EBuildingType.Barracks:
+                    return mapManager.GetPositionForBarracks();
+
+                default:
+                    Debug.LogError("BuildingController.GetInitialPosition: not found intial position");
+                    return Vector3.zero;
+
+            }
+        }
+
+        private void CreateBuilding(MapManager mapManager, BuildingData buildingData) 
         {
             GameObject buildingGameObject = new GameObject("Building");
-            buildingGameObject.transform.position = initialPosition;
+            buildingGameObject.transform.position = GetInitialPosition(mapManager);
             SpriteRenderer spriteRenderer = buildingGameObject.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = _buildingData.GetBuildingInitialSprite;
+            spriteRenderer.sprite = buildingData.GetBuildingInitialSprite;
+
+            _heroProcessor = buildingGameObject.AddComponent<BuildingHeroProcessor>();
+            _heroProcessor.Initialization(mapManager, buildingData.GetBuildingTimeToProcess);
+        }
+
+        internal void AddHeroToQueue(HeroController heroController) 
+        {
+            _heroProcessor.AddHeroToQueue(heroController);
         }
     }
 }
