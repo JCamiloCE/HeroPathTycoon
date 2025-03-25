@@ -22,19 +22,17 @@ namespace Buildings
         private void CreateInitialBuildings() 
         {
             _buildings = new ();
+            CreateSpecificBuilding(EBuildingType.Lobby);
+            CreateSpecificBuilding(EBuildingType.Barracks);
+        }
 
-            //While the prototype we create the Lobby and Barracks
-            GameObject objLobby = Instantiate(_buildingControllerBase);
-            BuildingController lobby = objLobby.GetComponent<BuildingController>();
-            BuildingData data = _buildingsDataScriptableObject.GetBuildingDataByBuildingType(EBuildingType.Lobby);
-            lobby.Initialization(data, _mapManager, EBuildingType.Lobby);
-            _buildings.Add(EBuildingType.Lobby, lobby);
-
-            GameObject objBarracks = Instantiate(_buildingControllerBase);
-            BuildingController barracks = objBarracks.GetComponent<BuildingController>();
-            data = _buildingsDataScriptableObject.GetBuildingDataByBuildingType(EBuildingType.Barracks);
-            barracks.Initialization(data, _mapManager, EBuildingType.Barracks);
-            _buildings.Add(EBuildingType.Barracks, barracks);
+        private void CreateSpecificBuilding(EBuildingType buildingType) 
+        {
+            GameObject gameObjBuilding = Instantiate(_buildingControllerBase);
+            BuildingController buildingController = gameObjBuilding.GetComponent<BuildingController>();
+            BuildingData data = _buildingsDataScriptableObject.GetBuildingDataByBuildingType(buildingType);
+            buildingController.Initialization(data, _mapManager, buildingType);
+            _buildings.Add(buildingType, buildingController);
         }
 
         public void AddHeroToBuilding(EBuildingType buildingType, HeroController heroController) 

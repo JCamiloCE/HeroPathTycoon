@@ -7,6 +7,7 @@ namespace Utils.Pool
     public class PoolControllerImpl<TType> : IPoolController<TType> where TType : MonoBehaviour
     {
         private bool _expandPool = false;
+        private GameObject _initialPoolObject = null;
         private List<PoolObject> _poolObjects = null;
         private List<TType> _poolSpecificObjects = null;
 
@@ -17,6 +18,7 @@ namespace Utils.Pool
             _expandPool = expandPool;
             _poolObjects = new List<PoolObject>();
             _poolSpecificObjects = new List<TType>();
+            _initialPoolObject = initialPoolObject;
 
             if (poolSize <= 0) 
                 throw new ArgumentException("poolSize must be greater than zero", "poolSize");
@@ -27,9 +29,7 @@ namespace Utils.Pool
 
             for (int i = 0; i < poolSize; i++)
             {
-                PoolObject newPoolObj = CreateNewPoolObject(initialPoolObject);
-                _poolObjects.Add(newPoolObj);
-                _poolSpecificObjects.Add(newPoolObj.GetComponent<TType>());
+                AddNewElementIntoThePool(_initialPoolObject);
             }
         }
 
@@ -39,7 +39,7 @@ namespace Utils.Pool
 
             if (index == -1 && _expandPool) 
             {
-                AddNewElementIntoThePool(_poolObjects[0].gameObject);
+                AddNewElementIntoThePool(_initialPoolObject);
                 index = _poolObjects.Count - 1;
             }
 
