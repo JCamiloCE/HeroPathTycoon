@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Utils.Random",
-        "Utils.Pool"
+        "Utils.Pool",
+        "Utils.EventSystemCore"
     ],
     "includePlatforms": [
         "Editor"
