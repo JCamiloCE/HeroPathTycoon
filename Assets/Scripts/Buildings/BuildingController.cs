@@ -23,6 +23,24 @@ namespace Buildings
             return true;
         }
 
+        internal void AddHeroToQueue(HeroController heroController)
+        {
+            _heroProcessor.AddHeroToQueue(heroController);
+        }
+
+        private void CreateBuilding(MapManager mapManager, BuildingData buildingData)
+        {
+            transform.position = GetInitialPosition(mapManager);
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = buildingData.GetBuildingInitialSprite;
+
+            _buildingArt = GetComponent<BuildingArt>();
+            _buildingArt.Initialization();
+
+            _heroProcessor = GetComponent<BuildingHeroProcessor>();
+            _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess);
+        }
+
         private Vector3 GetInitialPosition(MapManager mapManager) 
         {
             switch (_buildingType) 
@@ -38,24 +56,6 @@ namespace Buildings
                     return Vector3.zero;
 
             }
-        }
-
-        private void CreateBuilding(MapManager mapManager, BuildingData buildingData) 
-        {
-            transform.position = GetInitialPosition(mapManager);
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.sprite = buildingData.GetBuildingInitialSprite;
-
-            _buildingArt = GetComponent<BuildingArt>();
-            _buildingArt.Initialization();
-
-            _heroProcessor = GetComponent<BuildingHeroProcessor>();
-            _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess);
-        }
-
-        internal void AddHeroToQueue(HeroController heroController) 
-        {
-            _heroProcessor.AddHeroToQueue(heroController);
         }
     }
 }

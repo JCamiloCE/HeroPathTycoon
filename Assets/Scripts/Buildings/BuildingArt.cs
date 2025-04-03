@@ -10,14 +10,14 @@ namespace Buildings
         private Coroutine _processCoroutine;
         private bool _wasInitialized = false;
 
+        public bool WasInitialized() => _wasInitialized;
+
         public bool Initialization(params object[] parameters)
         {
             _wasInitialized = true;
             _loadProcess.fillAmount = 0;
             return _wasInitialized;
         }
-
-        public bool WasInitialized() => _wasInitialized;
 
         internal void StartProcess(float timeProcess) 
         {

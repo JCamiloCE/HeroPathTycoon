@@ -17,6 +17,8 @@ namespace Buildings
         private float _timeToProcess = 1;
         private bool _wasInitialized = false;
 
+        public bool WasInitialized() => _wasInitialized;
+
         public bool Initialization(params object[] parameters)
         {
             _mapManager = parameters[0] as MapManager;
@@ -26,8 +28,6 @@ namespace Buildings
             _wasInitialized = true;
             return _wasInitialized;
         }
-
-        public bool WasInitialized() => _wasInitialized;
 
         internal void AddHeroToQueue(HeroController heroController)
         {

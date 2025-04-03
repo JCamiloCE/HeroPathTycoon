@@ -29,36 +29,36 @@ namespace Heros
             return true;
         }
 
-        public void SetNewHeroData(HeroData heroData)
+        public void MoveToNewPoint(Vector3 targetPosition, Action finishHeroMovement)
+        {
+            _heroMovement.GoToNewPosition(finishHeroMovement, targetPosition, _heroSpeed);
+        }
+
+        public void StartFadeOut(float time, bool overrideFade)
+        {
+            _heroArt.StartFadeOut(time, overrideFade);
+        }
+
+        public void StartFadeIn(float time, bool overrideFade)
+        {
+            _heroArt.StartFadeIn(time, overrideFade);
+        }
+
+        internal void SetNewHeroData(HeroData heroData)
         {
             _heroArt.SetNewHeroData(heroData.GetHeroSprite);
             _heroSpeed = heroData.GetHeroSpeed;
         }
 
-        public void ActiveCurrentHero(Vector3 targetPosition) 
+        internal void ActiveCurrentHero(Vector3 targetPosition) 
         {
             _heroArt.ActiveCurrentHero();
             _heroMovement.GoToNewPosition(FinishStartMovement, targetPosition, _heroSpeed);
         }
 
-        public void EvolveHero(HeroData heroData) 
+        internal void EvolveHero(HeroData heroData) 
         {
             _heroArt.EvolveHero(heroData.GetHeroSprite);
-        }
-
-        public void MoveToNewPoint(Vector3 targetPosition, Action finishHeroMovement) 
-        {
-            _heroMovement.GoToNewPosition(finishHeroMovement, targetPosition, _heroSpeed);
-        }
-
-        internal void StartFadeOut(float time, bool overrideFade)
-        {
-            _heroArt.StartFadeOut(time, overrideFade);
-        }
-
-        internal void StartFadeIn(float time, bool overrideFade)
-        {
-            _heroArt.StartFadeIn(time, overrideFade);
         }
 
         private void InitializeMovementComponent(IRandom random, Vector3 initialPosition) 

@@ -23,17 +23,17 @@ namespace Heros
             return true;
         }
 
-        public void ActiveCurrentHero() 
+        internal void ActiveCurrentHero() 
         {
             StartFadeIn(1f, true);
         }
 
-        public void EvolveHero(Sprite heroSprite)
+        internal void EvolveHero(Sprite heroSprite)
         {
             _spriteRenderer.sprite = heroSprite;
         }
 
-        public void SetNewHeroData(Sprite heroSprite)
+        internal void SetNewHeroData(Sprite heroSprite)
         {
             _spriteRenderer.sprite = heroSprite;
         }

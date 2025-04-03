@@ -27,7 +27,6 @@ namespace Heros
             return true;
         }
 
-
         internal void SetInitialPosition(Vector3 initialPosition)
         {
             initialPosition.x = _random.GetRandomFloatBetween(initialPosition.x - 1f, initialPosition.x + 1f);

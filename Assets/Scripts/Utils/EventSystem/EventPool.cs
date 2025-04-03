@@ -7,7 +7,7 @@ namespace EvenSystemCore
     {
         private readonly Dictionary<Type, List<EventBase>> p_events_dictionary = new ();
 
-        public TEvent GetInstance<TEvent>(params object[] parameters) where TEvent : EventBase, new()
+        internal TEvent GetInstance<TEvent>(params object[] parameters) where TEvent : EventBase, new()
         {
             if (p_events_dictionary.ContainsKey(typeof(TEvent)) == false) 
                 p_events_dictionary.Add(typeof(TEvent), new List<EventBase>());
