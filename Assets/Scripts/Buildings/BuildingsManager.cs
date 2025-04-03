@@ -1,3 +1,5 @@
+using EvenSystemCore;
+using GameplayEvents;
 using Heros;
 using Map;
 using System.Collections.Generic;
@@ -5,7 +7,7 @@ using UnityEngine;
 
 namespace Buildings 
 {
-    public class BuildingsManager : MonoBehaviour
+    public class BuildingsManager : MonoBehaviour, IEventListener<StartProcessForHeroEvent>
     {
         [SerializeField] private GameObject _buildingControllerBase;
         [SerializeField] private MapManager _mapManager;
@@ -16,6 +18,7 @@ namespace Buildings
         private void Awake()
         {
             _buildingsDataScriptableObject = Resources.Load<BuildingsDataScriptableObject>("Scriptables/BuildingsDataScriptableObject");
+            EventManager.AddListener(this);
             CreateInitialBuildings();
         }
 
@@ -35,9 +38,9 @@ namespace Buildings
             _buildings.Add(buildingType, buildingController);
         }
 
-        public void AddHeroToBuilding(EBuildingType buildingType, HeroController heroController) 
+        void IEventListener<StartProcessForHeroEvent>.OnEvent(StartProcessForHeroEvent event_data)
         {
-            _buildings[buildingType].AddHeroToQueue(heroController);
+            _buildings[event_data.buildingType].AddHeroToQueue(event_data.heroController);
         }
     }
 }

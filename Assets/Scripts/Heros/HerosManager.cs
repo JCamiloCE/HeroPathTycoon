@@ -10,7 +10,6 @@ namespace Heros
     {
         [SerializeField] private GameObject _heroControllerBase;
         [SerializeField] private MapManager _mapManager;
-        [SerializeField] private BuildingsManager _buildingsManager;
 
         private IRandom _random;
         private HeroDataScriptableObject _heroDataScriptableObject = null;
@@ -29,7 +28,7 @@ namespace Heros
             HeroData heroData = _heroDataScriptableObject.GetHeroDataByFamily(EHeroFamily.Candidate);
 
             if (!newHero.WasInitialized())
-                newHero.Initialization(_mapManager.SelectHeroSpawnPoint(), _random, heroData, _buildingsManager);
+                newHero.Initialization(_mapManager.SelectHeroSpawnPoint(), _random, heroData);
             else
                 newHero.SetNewHeroData(heroData);
 

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
-public class EventManagerUnitTests
+public class UnitTest_EventManager
 {
     [Test]
     public void AddListener_NullListener_ArgumentNullException()
@@ -93,6 +93,7 @@ public class EventManagerUnitTests
         EventManager.AddListener(listener_Fake);
 
         //Act
+        int numberOfCalls = 3;
         EventManager.TriggerEvent<Event_Fake>(expectedFirstNumber);
         EventManager.TriggerEvent<Event_Fake>(expectedSecondNumber);
         EventManager.TriggerEvent<Event_Fake>(expectedThirdNumber);
@@ -101,6 +102,7 @@ public class EventManagerUnitTests
         Assert.AreEqual(expectedFirstNumber, listener_Fake.numberReceived[0]);
         Assert.AreEqual(expectedSecondNumber, listener_Fake.numberReceived[1]);
         Assert.AreEqual(expectedThirdNumber, listener_Fake.numberReceived[2]);
+        Assert.AreEqual(numberOfCalls, listener_Fake.OnEventCalledCount);
 
         //End
         EventManager.ClearListener();

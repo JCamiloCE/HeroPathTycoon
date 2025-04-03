@@ -1,4 +1,6 @@
 using Buildings;
+using EvenSystemCore;
+using GameplayEvents;
 using System;
 using UnityEngine;
 using Utils.Random;
@@ -7,7 +9,6 @@ namespace Heros
 {
     public class HeroController : MonoBehaviour, ILifeCycle
     {
-        private BuildingsManager _buildingsManager;
         private HeroMovement _heroMovement = null;
         private HeroArt _heroArt = null;
         private float _heroSpeed = 1.0f;
@@ -20,7 +21,6 @@ namespace Heros
             Vector3 initialPosition = (Vector3)parameters[0];
             IRandom random = parameters[1] as IRandom;
             HeroData heroData = parameters[2] as HeroData;
-            _buildingsManager = parameters[3] as BuildingsManager;
 
             InitializeMovementComponent(random, initialPosition);
             InitializeHeroArtComponent(heroData);
@@ -51,6 +51,16 @@ namespace Heros
             _heroMovement.GoToNewPosition(finishHeroMovement, targetPosition, _heroSpeed);
         }
 
+        internal void StartFadeOut(float time, bool overrideFade)
+        {
+            _heroArt.StartFadeOut(time, overrideFade);
+        }
+
+        internal void StartFadeIn(float time, bool overrideFade)
+        {
+            _heroArt.StartFadeIn(time, overrideFade);
+        }
+
         private void InitializeMovementComponent(IRandom random, Vector3 initialPosition) 
         {
             _heroMovement = gameObject.GetComponent<HeroMovement>();
@@ -66,7 +76,7 @@ namespace Heros
 
         private void FinishStartMovement()
         {
-            _buildingsManager.AddHeroToBuilding(EBuildingType.Lobby, this);
+            EventManager.TriggerEvent<StartProcessForHeroEvent>(this, EBuildingType.Lobby);
         }
 
         //=================

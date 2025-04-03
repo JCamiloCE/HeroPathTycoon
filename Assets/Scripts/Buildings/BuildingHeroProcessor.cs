@@ -50,10 +50,20 @@ namespace Buildings
         {
             for (int i = 0; i < _heroControllers.Count; i++)
             {
-                if(isProcessHero)
+                if (isProcessHero)
                     _heroControllers[i].MoveToNewPoint(GetPositionByIndex(i + 1), null);
                 else
-                    _heroControllers[i].MoveToNewPoint(GetPositionByIndex(i), i == 0 ? OnFinishHeroMovement : null);
+                {
+                    if (i == 0)
+                    {
+                        _heroControllers[i].MoveToNewPoint(GetPositionByIndex(i), OnFinishHeroMovement);
+                        _heroControllers[i].StartFadeOut(1f, overrideFade:false);
+                    }
+                    else 
+                    {
+                        _heroControllers[i].MoveToNewPoint(GetPositionByIndex(i), null);
+                    }
+                }
             }
         }
 
@@ -89,6 +99,7 @@ namespace Buildings
             {
                 _buildingArt.StartProcess(_timeToProcess);
                 yield return new WaitForSeconds(_timeToProcess);
+                _currentHero.StartFadeIn(1f, overrideFade:true);
                 _currentHero.MoveToNewPoint(new Vector3(0f,10f), null); //temp
                 _currentHero = null;
             }

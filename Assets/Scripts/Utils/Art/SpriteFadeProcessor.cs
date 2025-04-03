@@ -11,6 +11,7 @@ namespace Utils.Art
         private Coroutine _currentCoroutine = null;
 
         public bool WasInitialized() => _wasInitialized;
+        public bool IsProcessFade() => _currentCoroutine != null;
 
         public bool Initialization(params object[] parameters)
         {
@@ -64,6 +65,7 @@ namespace Utils.Art
             }
 
             SetAlpha(1f);
+            StopCurrentCoroutine();
         }
 
         private IEnumerator FadeOut()
@@ -80,6 +82,7 @@ namespace Utils.Art
             }
 
             SetAlpha(0f);
+            StopCurrentCoroutine();
         }
     }
 }

@@ -25,8 +25,7 @@ namespace Heros
 
         public void ActiveCurrentHero() 
         {
-            _fadeProcessor.SetAlpha(0f);
-            _fadeProcessor.StartFadeIn(2f);
+            StartFadeIn(1f, true);
         }
 
         public void EvolveHero(Sprite heroSprite)
@@ -37,6 +36,22 @@ namespace Heros
         public void SetNewHeroData(Sprite heroSprite)
         {
             _spriteRenderer.sprite = heroSprite;
+        }
+
+        internal void StartFadeOut(float time, bool overrideFade) 
+        {
+            if (!overrideFade && _fadeProcessor.IsProcessFade())
+                return;
+            _fadeProcessor.SetAlpha(1f);
+            _fadeProcessor.StartFadeOut(time);
+        }
+
+        internal void StartFadeIn(float time, bool overrideFade)
+        {
+            if (!overrideFade && _fadeProcessor.IsProcessFade())
+                return;
+            _fadeProcessor.SetAlpha(0f);
+            _fadeProcessor.StartFadeIn(time);
         }
 
         private void CreateSpriteRenderComponent(Sprite heroSprite)
