@@ -2,11 +2,12 @@ using Buildings;
 using GeneralManagers;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils.Pool;
 using Utils.Random;
 
 namespace Heros
 {
-    public class HeroPath: ILifeCycle
+    public class HeroPath: ILifeCycle, IPoolResettable
     {
         private struct PointInMap
         {
@@ -23,18 +24,36 @@ namespace Heros
         private List<PointInMap> _pointsInMap = null;
         private bool _wasInitialized = false;
         private int _currentIndex = -1;
+        MapManager _mapManager = null;
+        FeatureInGameManager _featureInGameManager = null;
+        IRandom _random = null;
 
         public bool WasInitialized() => _wasInitialized;
 
         public bool Initialization(params object[] parameters)
         {
-            MapManager mapManager = parameters[0] as MapManager;
-            FeatureInGameManager featureInGameManager = parameters[1] as FeatureInGameManager;
-            IRandom random = parameters[2] as IRandom;
-
-            CreateRandomPath(mapManager, featureInGameManager, random);
+            _mapManager = parameters[0] as MapManager;
+            _featureInGameManager = parameters[1] as FeatureInGameManager;
+            _random = parameters[2] as IRandom;
             _wasInitialized = true;
             return _wasInitialized;
+        }
+
+        void IPoolResettable.ResetPoolObject()
+        {
+            _currentIndex = -1;
+            _pointsInMap = null;
+        }
+
+        public void CreateRandomPath()
+        {
+            _pointsInMap = new()
+            {
+                new PointInMap(_mapManager.GetPositionToWait(EBuildingType.Lobby), EBuildingType.Lobby),
+                GetFirstLevel(),
+                new PointInMap(_mapManager.GetPositionToFinishTraining(), EBuildingType.None)
+            };
+            _currentIndex = -1;
         }
 
         public void IterateStep() 
@@ -51,27 +70,16 @@ namespace Heros
 
         public EBuildingType GetTypeBuilding() => _pointsInMap[_currentIndex].buildingType;
 
-        private void CreateRandomPath(MapManager mapManager, FeatureInGameManager featureInGameManager, IRandom random)
+        private PointInMap GetFirstLevel()
         {
-            _pointsInMap = new()
-            {
-                new PointInMap(mapManager.GetPositionToWait(EBuildingType.Lobby), EBuildingType.Lobby),
-                GetFirstLevel(mapManager, featureInGameManager, random),
-                new PointInMap(mapManager.GetPositionToFinishTraining(), EBuildingType.None)
-            };
-            _currentIndex = -1;
-        }
+            if (!_featureInGameManager.IsFeatureUnlock(EFeatureInGame.FeatureBuildingArcher))
+                return new (_mapManager.GetPositionToWait(EBuildingType.Barracks), EBuildingType.Barracks);
 
-        private PointInMap GetFirstLevel(MapManager mapManager, FeatureInGameManager featureInGameManager, IRandom random)
-        {
-            if (!featureInGameManager.IsFeatureUnlock(EFeatureInGame.FeatureBuildingArcher))
-                return new (mapManager.GetPositionToWait(EBuildingType.Barracks), EBuildingType.Barracks);
-
-            int randomIndex = random.GetRandomIntBetween(0, 10);
+            int randomIndex = _random.GetRandomIntBetween(0, 10);
             if (randomIndex < 5)
-                return new(mapManager.GetPositionToWait(EBuildingType.Lobby), EBuildingType.Barracks);
+                return new(_mapManager.GetPositionToWait(EBuildingType.Lobby), EBuildingType.Barracks);
 
-            return new(mapManager.GetPositionToWait(EBuildingType.Lobby), EBuildingType.Lobby); //Temp
+            return new(_mapManager.GetPositionToWait(EBuildingType.Lobby), EBuildingType.Lobby); //Temp
         }
     }
 }

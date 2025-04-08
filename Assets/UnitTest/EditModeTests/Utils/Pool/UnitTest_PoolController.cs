@@ -172,12 +172,36 @@ namespace UnitTests.EditModeTests.Utils.Pool
             Assert.That(exception.ParamName, Is.EqualTo("newPoolObj"));
         }
 
+        [Test]
+        public void ReturnToPool_ReturnCorrectPoolObjectWithResettableObject_ObjectWasReset()
+        {
+            //Arrange
+            IPoolController<PoolObject_Fake> poolController = new PoolControllerImpl<PoolObject_Fake>();
+            GameObject gameObject = new GameObject("TestObject");
+            gameObject.AddComponent<PoolObject_Fake>();
+            poolController.SetPoolObject(gameObject, 1, true);
+            PoolObject_Fake poolObj = poolController.GetPoolObject();
+
+            //Act
+            poolController.ReturnToPool(poolObj);
+
+            //Assert
+            Assert.IsTrue(poolObj.wasReset);
+        }
+
 
         //====================================================
         //====================================================
-        public class PoolObject_Fake : MonoBehaviour
+        public class PoolObject_Fake : MonoBehaviour, IPoolResettable
         {
             public bool IsAvailable => GetComponent<PoolObject>().IsAvailable;
+
+            public bool wasReset = false;
+
+            void IPoolResettable.ResetPoolObject()
+            {
+                wasReset = true;
+            }
         }
     }
 }

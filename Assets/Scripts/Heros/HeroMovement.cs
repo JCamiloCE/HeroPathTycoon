@@ -12,6 +12,7 @@ namespace Heros
         private IRandom _random = null;
         private Action _finishMovement = null;
         private Coroutine _currentMovement = null;
+        private Vector3 _initialPosition = Vector3.zero;
 
         public bool WasInitialized() => _wasInitialized;
 
@@ -30,7 +31,8 @@ namespace Heros
         internal void SetInitialPosition(Vector3 initialPosition)
         {
             initialPosition.x = _random.GetRandomFloatBetween(initialPosition.x - 1f, initialPosition.x + 1f);
-            _heroTransform.position = initialPosition;
+            _initialPosition = initialPosition;
+            SendToInitialPosition();
         }
 
         internal void GoToNewPosition(Action finishMovement, Vector3 targetPosition, float moveSpeed) 
@@ -38,6 +40,11 @@ namespace Heros
             _finishMovement = finishMovement;
             StopCurrentMovement();
             _currentMovement = StartCoroutine(MoveObject(targetPosition, moveSpeed));
+        }
+
+        internal void SendToInitialPosition() 
+        {
+            _heroTransform.position = _initialPosition;
         }
 
         private void StopCurrentMovement()

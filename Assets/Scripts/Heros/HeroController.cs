@@ -69,6 +69,8 @@ namespace Heros
         {
             _heroArt.SetNewHeroData(heroData.GetHeroSprite);
             _heroSpeed = heroData.GetHeroSpeed;
+            _heroPath.CreateRandomPath();
+            _heroMovement.SendToInitialPosition();
         }
 
         internal void ActiveCurrentHero() 
@@ -94,6 +96,7 @@ namespace Heros
         {
             _heroPath = new();
             _heroPath.Initialization(mapManager, featureInGameManager, random);
+            _heroPath.CreateRandomPath();
         }
 
         private void FinishMovement()
@@ -101,7 +104,7 @@ namespace Heros
             EBuildingType buildingType = _heroPath.GetTypeBuilding();
             if (buildingType == EBuildingType.None)
             {
-                //Implement desapear 
+                EventManager.TriggerEvent<FinishHeroPathEvent>(this);
             }
             else 
             {

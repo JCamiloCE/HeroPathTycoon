@@ -1,3 +1,5 @@
+using EvenSystemCore;
+using GameplayEvents;
 using GeneralManagers;
 using UnityEngine;
 using Utils.Pool;
@@ -5,7 +7,7 @@ using Utils.Random;
 
 namespace Heros
 {
-    public class HerosManager : MonoBehaviour
+    public class HerosManager : MonoBehaviour, IEventListener<FinishHeroPathEvent>
     {
         [SerializeField] private GameObject _heroControllerBase;
         [SerializeField] private MapManager _mapManager;
@@ -20,6 +22,7 @@ namespace Heros
             _random = new RandomUnity();
             _heroDataScriptableObject = Resources.Load<HeroDataScriptableObject>("Scriptables/HerosDataScriptableObject");
             CreatePoolOfHeros();
+            EventManager.AddListener(this);
         }
 
         public void SpawnNewHero()
@@ -39,6 +42,11 @@ namespace Heros
         {
             _poolController = new PoolControllerImpl<HeroController>();
             _poolController.SetPoolObject(_heroControllerBase, 5, true);
+        }
+
+        void IEventListener<FinishHeroPathEvent>.OnEvent(FinishHeroPathEvent event_data)
+        {
+            _poolController.ReturnToPool(event_data.heroController);
         }
     }
 }
