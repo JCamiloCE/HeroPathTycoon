@@ -1,5 +1,5 @@
 using Heros;
-using Map;
+using GeneralManagers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +9,12 @@ namespace Buildings
     public class BuildingHeroProcessor : MonoBehaviour, ILifeCycle
     {
         private List<HeroController> _heroControllers = null;
-        private HeroController _currentHero = null;
+        private HeroController _currentHero = null; //This is temporal the idea is the building doesn't contains Hero reference
         private Coroutine _moveQueueCoroutine = null;
         private Coroutine _heroProcessorCoroutine = null;
         private MapManager _mapManager = null;
         private BuildingArt _buildingArt = null;
+        private EBuildingType _buildingType = EBuildingType.None;
         private float _timeToProcess = 1;
         private bool _wasInitialized = false;
 
@@ -24,6 +25,7 @@ namespace Buildings
             _mapManager = parameters[0] as MapManager;
             _buildingArt = parameters[1] as BuildingArt;
             _timeToProcess = (float)parameters[2];
+            _buildingType = (EBuildingType)parameters[3];
             _heroControllers = new ();
             _wasInitialized = true;
             return _wasInitialized;
@@ -69,7 +71,7 @@ namespace Buildings
 
         private Vector3 GetPositionByIndex(int index) 
         {
-            Vector3 newPosition = _mapManager.GetPositionToStartQueue();
+            Vector3 newPosition = _mapManager.GetPositionToStartQueue(_buildingType);
             newPosition.y -= (index * 2);
             return newPosition;
         }
@@ -100,10 +102,13 @@ namespace Buildings
                 _buildingArt.StartProcess(_timeToProcess);
                 yield return new WaitForSeconds(_timeToProcess);
                 _currentHero.StartFadeIn(1f, overrideFade:true);
-                _currentHero.MoveToNewPoint(new Vector3(0f,10f), null); //temp
+                if (_buildingType == EBuildingType.Barracks) 
+                {
+                    _currentHero.EvolveHero(EHeroFamily.Warrior);
+                }
+                _currentHero.CallNextStepInHeroPath();
                 _currentHero = null;
             }
-            Debug.Log("Finish hero process");
             RunMoveQueue();
             _heroProcessorCoroutine = null;
         }

@@ -1,6 +1,7 @@
 using Buildings;
 using EvenSystemCore;
 using GameplayEvents;
+using GeneralManagers;
 using System;
 using UnityEngine;
 using Utils.Random;
@@ -11,6 +12,7 @@ namespace Heros
     {
         private HeroMovement _heroMovement = null;
         private HeroArt _heroArt = null;
+        private HeroPath _heroPath = null;
         private float _heroSpeed = 1.0f;
         private bool _wasInitialzed = false;
 
@@ -18,12 +20,16 @@ namespace Heros
 
         public bool Initialization(params object[] parameters)
         {
-            Vector3 initialPosition = (Vector3)parameters[0];
-            IRandom random = parameters[1] as IRandom;
-            HeroData heroData = parameters[2] as HeroData;
+            MapManager mapManager = parameters[0] as MapManager;
+            FeatureInGameManager featureInGameManager = parameters[1] as FeatureInGameManager;
+            IRandom random = parameters[2] as IRandom;
+            HeroData heroData = parameters[3] as HeroData;
 
-            InitializeMovementComponent(random, initialPosition);
+            _heroSpeed = heroData.GetHeroSpeed;
+
+            InitializeMovementComponent(random, mapManager.SelectHeroSpawnPoint());
             InitializeHeroArtComponent(heroData);
+            InitializeHeroPath(mapManager, featureInGameManager, random);
 
             _wasInitialzed = true;
             return true;
@@ -44,21 +50,31 @@ namespace Heros
             _heroArt.StartFadeIn(time, overrideFade);
         }
 
+        internal void EvolveHero(EHeroFamily heroFamily)
+        {
+            HeroDataScriptableObject heroDataScriptableObject = Resources.Load<HeroDataScriptableObject>("Scriptables/HerosDataScriptableObject");
+            HeroData heroData = heroDataScriptableObject.GetHeroDataByFamily(EHeroFamily.Warrior);
+            _heroArt.EvolveHero(heroData.GetHeroSprite);
+            _heroSpeed = heroData.GetHeroSpeed;
+        }
+
+        public void CallNextStepInHeroPath() 
+        {
+            _heroPath.IterateStep();
+            Vector2 nextPosition = _heroPath.GetNextPosition();
+            _heroMovement.GoToNewPosition(FinishMovement, nextPosition, _heroSpeed);
+        }
+
         internal void SetNewHeroData(HeroData heroData)
         {
             _heroArt.SetNewHeroData(heroData.GetHeroSprite);
             _heroSpeed = heroData.GetHeroSpeed;
         }
 
-        internal void ActiveCurrentHero(Vector3 targetPosition) 
+        internal void ActiveCurrentHero() 
         {
             _heroArt.ActiveCurrentHero();
-            _heroMovement.GoToNewPosition(FinishStartMovement, targetPosition, _heroSpeed);
-        }
-
-        internal void EvolveHero(HeroData heroData) 
-        {
-            _heroArt.EvolveHero(heroData.GetHeroSprite);
+            CallNextStepInHeroPath();
         }
 
         private void InitializeMovementComponent(IRandom random, Vector3 initialPosition) 
@@ -74,20 +90,22 @@ namespace Heros
             _heroArt.Initialization(heroData.GetHeroSprite);
         }
 
-        private void FinishStartMovement()
+        private void InitializeHeroPath(MapManager mapManager, FeatureInGameManager featureInGameManager, IRandom random) 
         {
-            EventManager.TriggerEvent<StartProcessForHeroEvent>(this, EBuildingType.Lobby);
+            _heroPath = new();
+            _heroPath.Initialization(mapManager, featureInGameManager, random);
         }
 
-        //=================
-        //=================
-        public void Update()
+        private void FinishMovement()
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            EBuildingType buildingType = _heroPath.GetTypeBuilding();
+            if (buildingType == EBuildingType.None)
             {
-                HeroDataScriptableObject heroDataScriptableObject = Resources.Load<HeroDataScriptableObject>("Scriptables/HerosDataScriptableObject");
-                HeroData heroData = heroDataScriptableObject.GetHeroDataByFamily(EHeroFamily.Warrior);
-                EvolveHero(heroData);
+                //Implement desapear 
+            }
+            else 
+            {
+                EventManager.TriggerEvent<StartProcessForHeroEvent>(this, buildingType);
             }
         }
     }

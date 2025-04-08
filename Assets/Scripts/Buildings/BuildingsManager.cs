@@ -1,7 +1,6 @@
 using EvenSystemCore;
 using GameplayEvents;
-using Heros;
-using Map;
+using GeneralManagers;
 using System.Collections.Generic;
 using UnityEngine;
 

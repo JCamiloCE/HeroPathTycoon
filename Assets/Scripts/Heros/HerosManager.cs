@@ -1,4 +1,4 @@
-using Map;
+using GeneralManagers;
 using UnityEngine;
 using Utils.Pool;
 using Utils.Random;
@@ -9,6 +9,7 @@ namespace Heros
     {
         [SerializeField] private GameObject _heroControllerBase;
         [SerializeField] private MapManager _mapManager;
+        [SerializeField] private FeatureInGameManager _featureInGameManager;
 
         private IRandom _random;
         private HeroDataScriptableObject _heroDataScriptableObject = null;
@@ -27,11 +28,11 @@ namespace Heros
             HeroData heroData = _heroDataScriptableObject.GetHeroDataByFamily(EHeroFamily.Candidate);
 
             if (!newHero.WasInitialized())
-                newHero.Initialization(_mapManager.SelectHeroSpawnPoint(), _random, heroData);
+                newHero.Initialization(_mapManager, _featureInGameManager, _random, heroData);
             else
                 newHero.SetNewHeroData(heroData);
 
-            newHero.ActiveCurrentHero(_mapManager.GetPositionToWaitInLobby());
+            newHero.ActiveCurrentHero();
         }
 
         private void CreatePoolOfHeros() 

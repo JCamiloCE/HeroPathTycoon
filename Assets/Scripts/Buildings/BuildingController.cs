@@ -1,5 +1,5 @@
 using Heros;
-using Map;
+using GeneralManagers;
 using UnityEngine;
 
 namespace Buildings
@@ -38,7 +38,7 @@ namespace Buildings
             _buildingArt.Initialization();
 
             _heroProcessor = GetComponent<BuildingHeroProcessor>();
-            _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess);
+            _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess, _buildingType);
         }
 
         private Vector3 GetInitialPosition(MapManager mapManager) 
@@ -46,10 +46,10 @@ namespace Buildings
             switch (_buildingType) 
             {
                 case EBuildingType.Lobby:
-                    return mapManager.GetPositionForLobby();
+                    return mapManager.GetPositionForArt(EBuildingType.Lobby);
 
                 case EBuildingType.Barracks:
-                    return mapManager.GetPositionForBarracks();
+                    return mapManager.GetPositionForArt(EBuildingType.Barracks);
 
                 default:
                     Debug.LogError("BuildingController.GetInitialPosition: not found intial position");
