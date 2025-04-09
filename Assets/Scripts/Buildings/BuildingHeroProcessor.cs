@@ -20,6 +20,7 @@ namespace Buildings
         private EBuildingType _buildingType = EBuildingType.None;
         private float _timeToProcess = 1;
         private bool _wasInitialized = false;
+        private int _currencyPerProcess = 1;
 
         public bool WasInitialized() => _wasInitialized;
 
@@ -29,6 +30,7 @@ namespace Buildings
             _buildingArt = parameters[1] as BuildingArt;
             _timeToProcess = (float)parameters[2];
             _buildingType = (EBuildingType)parameters[3];
+            _currencyPerProcess = (int)parameters[4];
             _heroControllers = new ();
             _wasInitialized = true;
             return _wasInitialized;
@@ -114,7 +116,7 @@ namespace Buildings
             }
             RunMoveQueue();
             _heroProcessorCoroutine = null;
-            EventManager.TriggerEvent<UserCurrencyChangeEvent>(ECurrency.Soft, 100);
+            EventManager.TriggerEvent<UserCurrencyChangeEvent>(ECurrency.Soft, _currencyPerProcess);
         }
     }
 }

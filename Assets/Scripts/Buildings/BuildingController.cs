@@ -38,7 +38,7 @@ namespace Buildings
             _buildingArt.Initialization();
 
             _heroProcessor = GetComponent<BuildingHeroProcessor>();
-            _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess, _buildingType);
+            _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess, _buildingType, buildingData.GetBuildingGoldPerProcess);
         }
 
         private Vector3 GetInitialPosition(MapManager mapManager) 
