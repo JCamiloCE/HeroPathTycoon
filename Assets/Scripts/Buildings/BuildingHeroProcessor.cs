@@ -3,6 +3,9 @@ using GeneralManagers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EvenSystemCore;
+using GameplayEvents;
+using Enums;
 
 namespace Buildings
 {
@@ -111,6 +114,7 @@ namespace Buildings
             }
             RunMoveQueue();
             _heroProcessorCoroutine = null;
+            EventManager.TriggerEvent<UserCurrencyChangeEvent>(ECurrency.Soft, 100);
         }
     }
 }
