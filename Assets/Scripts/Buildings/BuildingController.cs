@@ -9,7 +9,6 @@ namespace Buildings
         private BuildingHeroProcessor _heroProcessor = null;
         private BuildingArt _buildingArt = null;
         private bool _wasInitialized = false;
-        private EBuildingType _buildingType = EBuildingType.None;
 
         public bool WasInitialized() => _wasInitialized;
 
@@ -17,7 +16,6 @@ namespace Buildings
         {
             BuildingData buildingData = parameters[0] as BuildingData;
             MapManager mapManager = parameters[1] as MapManager;
-            _buildingType = (EBuildingType)parameters[2];
             CreateBuilding(mapManager, buildingData);
             _wasInitialized = true;
             return true;
@@ -30,7 +28,7 @@ namespace Buildings
 
         private void CreateBuilding(MapManager mapManager, BuildingData buildingData)
         {
-            transform.position = GetInitialPosition(mapManager);
+            transform.position = mapManager.GetPositionForArt(buildingData.GetBuildingType); 
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = buildingData.GetBuildingInitialSprite;
 
@@ -38,24 +36,7 @@ namespace Buildings
             _buildingArt.Initialization();
 
             _heroProcessor = GetComponent<BuildingHeroProcessor>();
-            _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess, _buildingType, buildingData.GetBuildingGoldPerProcess);
-        }
-
-        private Vector3 GetInitialPosition(MapManager mapManager) 
-        {
-            switch (_buildingType) 
-            {
-                case EBuildingType.Lobby:
-                    return mapManager.GetPositionForArt(EBuildingType.Lobby);
-
-                case EBuildingType.Barracks:
-                    return mapManager.GetPositionForArt(EBuildingType.Barracks);
-
-                default:
-                    Debug.LogError("BuildingController.GetInitialPosition: not found intial position");
-                    return Vector3.zero;
-
-            }
+            _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess, buildingData.GetBuildingType, buildingData.GetBuildingGoldPerProcess);
         }
     }
 }

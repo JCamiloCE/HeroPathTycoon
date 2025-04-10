@@ -12,5 +12,15 @@ namespace Buildings
         {
             return buildingsDataScriptable.Find(x => x.GetBuildingType == buildingType);
         }
+
+        internal HashSet<EBuildingType> GetAllTypeOfBuildings() 
+        {
+            HashSet<EBuildingType> buildingsType = new ();
+            for (int i = 0; i < buildingsDataScriptable.Count; i++)
+            {
+                buildingsType.Add(buildingsDataScriptable[i].GetBuildingType);
+            }
+            return buildingsType;
+        }
     }
 }

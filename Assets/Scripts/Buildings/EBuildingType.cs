@@ -8,6 +8,7 @@ namespace Buildings
     {
         Invalid = -1,
         None = 0,
+        Archery = 001702,
         Barracks = 010017,
         Lobby = 111401,
     }

@@ -24,8 +24,11 @@ namespace Buildings
         private void CreateInitialBuildings() 
         {
             _buildings = new ();
-            CreateSpecificBuilding(EBuildingType.Lobby);
-            CreateSpecificBuilding(EBuildingType.Barracks);
+            HashSet<EBuildingType> buildingTypes = _buildingsDataScriptableObject.GetAllTypeOfBuildings();
+            foreach (EBuildingType buildingType in buildingTypes)
+            {
+                CreateSpecificBuilding(buildingType);
+            }
         }
 
         private void CreateSpecificBuilding(EBuildingType buildingType) 
@@ -33,7 +36,7 @@ namespace Buildings
             GameObject gameObjBuilding = Instantiate(_buildingControllerBase);
             BuildingController buildingController = gameObjBuilding.GetComponent<BuildingController>();
             BuildingData data = _buildingsDataScriptableObject.GetBuildingDataByBuildingType(buildingType);
-            buildingController.Initialization(data, _mapManager, buildingType);
+            buildingController.Initialization(data, _mapManager);
             _buildings.Add(buildingType, buildingController);
         }
 
