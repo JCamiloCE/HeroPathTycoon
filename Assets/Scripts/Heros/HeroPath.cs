@@ -9,19 +9,7 @@ namespace Heros
 {
     public class HeroPath: ILifeCycle, IPoolResettable
     {
-        private struct PointInMap
-        {
-            public readonly Vector2 positionInMap;
-            public readonly EBuildingType buildingType;
-
-            public PointInMap(Vector2 positionInMap, EBuildingType buildingType) 
-            {
-                this.positionInMap = positionInMap;
-                this.buildingType = buildingType;
-            }
-        }
-
-        private List<PointInMap> _pointsInMap = null;
+        private List<EBuildingType> _heroPath = null;
         private bool _wasInitialized = false;
         private int _currentIndex = -1;
         MapManager _mapManager = null;
@@ -29,6 +17,8 @@ namespace Heros
         IRandom _random = null;
 
         public bool WasInitialized() => _wasInitialized;
+
+        public EBuildingType GetTypeBuilding() => _heroPath[_currentIndex];
 
         public bool Initialization(params object[] parameters)
         {
@@ -42,16 +32,16 @@ namespace Heros
         void IPoolResettable.ResetPoolObject()
         {
             _currentIndex = -1;
-            _pointsInMap = null;
+            _heroPath = null;
         }
 
         public void CreateRandomPath()
         {
-            _pointsInMap = new()
+            _heroPath = new()
             {
-                new PointInMap(_mapManager.GetPositionToWait(EBuildingType.Lobby), EBuildingType.Lobby),
-                GetFirstLevel(),
-                new PointInMap(_mapManager.GetPositionToFinishTraining(), EBuildingType.None)
+                EBuildingType.Lobby,
+                GetFirstLevelOfPath(),
+                EBuildingType.None
             };
             _currentIndex = -1;
         }
@@ -59,27 +49,33 @@ namespace Heros
         public void IterateStep() 
         {
             _currentIndex++;
-            if (_currentIndex >= _pointsInMap.Count)
+            if (_currentIndex >= _heroPath.Count)
             {
                 Debug.Log("Index out of bounds when try to select a the next position");
-                _currentIndex = _pointsInMap.Count - 1;
+                _currentIndex = _heroPath.Count - 1;
             }
         }
 
-        public Vector2 GetNextPosition() => _pointsInMap[_currentIndex].positionInMap;
+        public Vector2 GetNextPosition()
+        {
+            if (_heroPath[_currentIndex] == EBuildingType.None)
+            {
+                return _mapManager.GetPositionToFinishTraining();
+            }
 
-        public EBuildingType GetTypeBuilding() => _pointsInMap[_currentIndex].buildingType;
+            return _mapManager.GetPositionToWait(_heroPath[_currentIndex]);
+        }
 
-        private PointInMap GetFirstLevel()
+        private EBuildingType GetFirstLevelOfPath()
         {
             if (!_featureInGameManager.IsFeatureUnlock(EFeatureInGame.FeatureBuildingArcher))
-                return new (_mapManager.GetPositionToWait(EBuildingType.Barracks), EBuildingType.Barracks);
+                return EBuildingType.Barracks;
 
             int randomIndex = _random.GetRandomIntBetween(0, 10);
             if (randomIndex < 5)
-                return new(_mapManager.GetPositionToWait(EBuildingType.Barracks), EBuildingType.Barracks);
+                return EBuildingType.Barracks;
             else
-                return new(_mapManager.GetPositionToWait(EBuildingType.Archery), EBuildingType.Archery);
+                return EBuildingType.Archery;
         }
     }
 }
