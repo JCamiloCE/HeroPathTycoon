@@ -16,7 +16,8 @@ namespace Buildings
         {
             BuildingData buildingData = parameters[0] as BuildingData;
             MapManager mapManager = parameters[1] as MapManager;
-            CreateBuilding(mapManager, buildingData);
+            FeatureInGameManager featureInGameManager = parameters[2] as FeatureInGameManager;
+            CreateBuilding(mapManager, buildingData, featureInGameManager);
             _wasInitialized = true;
             return true;
         }
@@ -26,17 +27,36 @@ namespace Buildings
             _heroProcessor.AddHeroToQueue(heroController);
         }
 
-        private void CreateBuilding(MapManager mapManager, BuildingData buildingData)
+        private void CreateBuilding(MapManager mapManager, BuildingData buildingData, FeatureInGameManager featureInGameManager)
         {
             transform.position = mapManager.GetPositionForArt(buildingData.GetBuildingType); 
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.sprite = buildingData.GetBuildingInitialSprite;
-
+            
             _buildingArt = GetComponent<BuildingArt>();
-            _buildingArt.Initialization();
+            bool isBuildingUnlock = IsUnlockBuilding(featureInGameManager, buildingData.GetBuildingType);
+            _buildingArt.Initialization(buildingData.GetBuildingInitialSprite, isBuildingUnlock);
 
             _heroProcessor = GetComponent<BuildingHeroProcessor>();
             _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess, buildingData.GetBuildingType, buildingData.GetBuildingGoldPerProcess);
+        }
+
+        private bool IsUnlockBuilding(FeatureInGameManager featureInGameManager, EBuildingType buildingType) 
+        {
+            switch (buildingType)
+            {
+                case EBuildingType.Archery:
+                    return featureInGameManager.IsFeatureUnlock(EFeatureInGame.FeatureBuildingArcher);
+                case EBuildingType.Barracks:
+                    return featureInGameManager.IsFeatureUnlock(EFeatureInGame.FeatureBuildingBarracks);
+                case EBuildingType.Lobby:
+                    return featureInGameManager.IsFeatureUnlock(EFeatureInGame.FeatureBuildingLobby);
+
+                case EBuildingType.Invalid:
+                case EBuildingType.None:
+                default:
+                    Debug.LogError("Unsuppor Building type: " + buildingType);
+                    return false;
+                    break;
+            }
         }
     }
 }

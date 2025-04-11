@@ -15,11 +15,11 @@ namespace GeneralManagers
                 return _featureInGame[feature];
             }
 
-            Debug.LogError("Feature not found");
+            Debug.LogError("Feature not found: " + feature);
             return false;
         }
-
-        private void Start()
+        
+        private void Awake()
         {
             InitializeFeatures();
         }

@@ -10,6 +10,7 @@ namespace Buildings
     {
         [SerializeField] private GameObject _buildingControllerBase;
         [SerializeField] private MapManager _mapManager;
+        [SerializeField] private FeatureInGameManager _featureInGameManager;
 
         private BuildingsDataScriptableObject _buildingsDataScriptableObject = null;
         private Dictionary<EBuildingType, BuildingController> _buildings;
@@ -36,7 +37,7 @@ namespace Buildings
             GameObject gameObjBuilding = Instantiate(_buildingControllerBase);
             BuildingController buildingController = gameObjBuilding.GetComponent<BuildingController>();
             BuildingData data = _buildingsDataScriptableObject.GetBuildingDataByBuildingType(buildingType);
-            buildingController.Initialization(data, _mapManager);
+            buildingController.Initialization(data, _mapManager, _featureInGameManager);
             _buildings.Add(buildingType, buildingController);
         }
 

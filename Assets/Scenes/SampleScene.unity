@@ -321,6 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buildingControllerBase: {fileID: 571920101150594500, guid: 484292443b5e09f449fd2685a90223bc, type: 3}
   _mapManager: {fileID: 524746600}
+  _featureInGameManager: {fileID: 451079108}
 --- !u!1 &524746598
 GameObject:
   m_ObjectHideFlags: 0
