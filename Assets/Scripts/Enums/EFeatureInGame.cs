@@ -1,4 +1,4 @@
-namespace GeneralManagers
+namespace Enums
 {
     //Each feature needs to have three words in the name:
     // - First W: each entry needs the word "Feature"

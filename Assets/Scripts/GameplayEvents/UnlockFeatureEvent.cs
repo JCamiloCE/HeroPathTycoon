@@ -1,5 +1,5 @@
 using EvenSystemCore;
-using GeneralManagers;
+using Enums;
 
 namespace GameplayEvents
 {

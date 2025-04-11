@@ -4,6 +4,7 @@ using GeneralManagers;
 using UnityEngine;
 using Utils.Pool;
 using Utils.Random;
+using Enums;
 
 namespace Heros
 {

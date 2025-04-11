@@ -1,4 +1,5 @@
-namespace Heros
+namespace Enums
+
 {
     //Each component of the enum need a identification
     //The identification must be the index of the first three letters
