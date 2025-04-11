@@ -77,9 +77,9 @@ namespace Heros
 
             int randomIndex = _random.GetRandomIntBetween(0, 10);
             if (randomIndex < 5)
-                return new(_mapManager.GetPositionToWait(EBuildingType.Lobby), EBuildingType.Barracks);
-
-            return new(_mapManager.GetPositionToWait(EBuildingType.Lobby), EBuildingType.Lobby); //Temp
+                return new(_mapManager.GetPositionToWait(EBuildingType.Barracks), EBuildingType.Barracks);
+            else
+                return new(_mapManager.GetPositionToWait(EBuildingType.Archery), EBuildingType.Archery);
         }
     }
 }

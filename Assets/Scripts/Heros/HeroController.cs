@@ -53,7 +53,7 @@ namespace Heros
         internal void EvolveHero(EHeroFamily heroFamily)
         {
             HeroDataScriptableObject heroDataScriptableObject = Resources.Load<HeroDataScriptableObject>("Scriptables/HerosDataScriptableObject");
-            HeroData heroData = heroDataScriptableObject.GetHeroDataByFamily(EHeroFamily.Warrior);
+            HeroData heroData = heroDataScriptableObject.GetHeroDataByFamily(heroFamily);
             _heroArt.EvolveHero(heroData.GetHeroSprite);
             _heroSpeed = heroData.GetHeroSpeed;
         }

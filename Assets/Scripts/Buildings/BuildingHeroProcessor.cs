@@ -106,17 +106,27 @@ namespace Buildings
             {
                 _buildingArt.StartProcess(_timeToProcess);
                 yield return new WaitForSeconds(_timeToProcess);
-                _currentHero.StartFadeIn(1f, overrideFade:true);
-                if (_buildingType == EBuildingType.Barracks) 
-                {
-                    _currentHero.EvolveHero(EHeroFamily.Warrior);
-                }
-                _currentHero.CallNextStepInHeroPath();
+                EvolveHero();
                 _currentHero = null;
             }
             RunMoveQueue();
-            _heroProcessorCoroutine = null;
             EventManager.TriggerEvent<UserCurrencyChangeEvent>(ECurrency.Soft, _currencyPerProcess);
+            _heroProcessorCoroutine = null;
+        }
+
+        private void EvolveHero() 
+        {
+            _currentHero.StartFadeIn(1f, overrideFade: true);
+            switch (_buildingType)
+            {
+                case EBuildingType.Archery:
+                    _currentHero.EvolveHero(EHeroFamily.Archer);
+                    break;
+                case EBuildingType.Barracks:
+                    _currentHero.EvolveHero(EHeroFamily.Warrior);
+                    break;
+            }
+            _currentHero.CallNextStepInHeroPath();
         }
     }
 }
