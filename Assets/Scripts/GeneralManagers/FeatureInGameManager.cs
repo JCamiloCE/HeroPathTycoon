@@ -1,10 +1,11 @@
-using System.Collections;
+using EvenSystemCore;
+using GameplayEvents;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GeneralManagers
 {
-    public class FeatureInGameManager : MonoBehaviour
+    public class FeatureInGameManager : MonoBehaviour, IEventListener<BuildingPurchasedEvent>
     {
         private Dictionary<EFeatureInGame, bool> _featureInGame = new ();
 
@@ -18,10 +19,23 @@ namespace GeneralManagers
             Debug.LogError("Feature not found: " + feature);
             return false;
         }
-        
+
+        void IEventListener<BuildingPurchasedEvent>.OnEvent(BuildingPurchasedEvent event_data)
+        {
+            switch (event_data.buildingType)
+            {
+                case Buildings.EBuildingType.Archery:
+                    _featureInGame[EFeatureInGame.FeatureBuildingArcher] = true;
+                    EventManager.TriggerEvent<UnlockFeatureEvent>(EFeatureInGame.FeatureBuildingArcher);
+                    break;
+            }
+        }
+
         private void Awake()
         {
             InitializeFeatures();
+
+            EventManager.AddListener(this);
         }
 
         private void InitializeFeatures() 

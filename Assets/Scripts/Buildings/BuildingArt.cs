@@ -36,6 +36,16 @@ namespace Buildings
             _processCoroutine = StartCoroutine(ProcessImg(timeProcess));
         }
 
+        internal void UnlockBuilding() 
+        {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.color = Color.white;
+            foreach (var obj in _lockObjs)
+            {
+                obj.SetActive(false);
+            }
+        }
+
         private void SetBuildingSprite(Sprite initialSprite, bool isUnlock) 
         {
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();

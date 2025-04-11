@@ -17,11 +17,14 @@ MonoBehaviour:
     _initialSprite: {fileID: 21300000, guid: 998ac5c55a4b5844289e2cebe7480d9a, type: 3}
     _timeToProcess: 1
     _goldPerProcess: 20
+    _price: 0
   - _buildingType: 10017
     _initialSprite: {fileID: 21300000, guid: ae8cf53182b54c8408b82ff979e30af1, type: 3}
     _timeToProcess: 2
     _goldPerProcess: 60
+    _price: 0
   - _buildingType: 1702
     _initialSprite: {fileID: 21300000, guid: ae8cf53182b54c8408b82ff979e30af1, type: 3}
     _timeToProcess: 3
     _goldPerProcess: 80
+    _price: 100

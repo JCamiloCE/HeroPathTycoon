@@ -1,13 +1,19 @@
 using Heros;
 using GeneralManagers;
 using UnityEngine;
+using UI;
+using EvenSystemCore;
+using GameplayEvents;
 
 namespace Buildings
 {
-    public class BuildingController : MonoBehaviour, ILifeCycle
+    public class BuildingController : MonoBehaviour, ILifeCycle, IEventListener<UnlockFeatureEvent>
     {
+        [SerializeField] private UIBuildingController _UIBuildingController;
+
         private BuildingHeroProcessor _heroProcessor = null;
         private BuildingArt _buildingArt = null;
+        private EBuildingType _buildingType;
         private bool _wasInitialized = false;
 
         public bool WasInitialized() => _wasInitialized;
@@ -18,6 +24,8 @@ namespace Buildings
             MapManager mapManager = parameters[1] as MapManager;
             FeatureInGameManager featureInGameManager = parameters[2] as FeatureInGameManager;
             CreateBuilding(mapManager, buildingData, featureInGameManager);
+            _buildingType = buildingData.GetBuildingType;
+            EventManager.AddListener<UnlockFeatureEvent>(this);
             _wasInitialized = true;
             return true;
         }
@@ -25,6 +33,25 @@ namespace Buildings
         internal void AddHeroToQueue(HeroController heroController)
         {
             _heroProcessor.AddHeroToQueue(heroController);
+        }
+
+        void IEventListener<UnlockFeatureEvent>.OnEvent(UnlockFeatureEvent event_data)
+        {
+            switch (event_data.featureInGame)
+            {
+                case EFeatureInGame.FeatureBuildingArcher:
+                    if (_buildingType == EBuildingType.Archery)
+                    {
+                        _buildingArt.UnlockBuilding();
+                    }
+                    break;
+                case EFeatureInGame.FeatureBuildingBarracks:
+                    if (_buildingType == EBuildingType.Barracks)
+                    {
+                        _buildingArt.UnlockBuilding();
+                    }
+                    break;
+            }
         }
 
         private void CreateBuilding(MapManager mapManager, BuildingData buildingData, FeatureInGameManager featureInGameManager)
@@ -37,6 +64,8 @@ namespace Buildings
 
             _heroProcessor = GetComponent<BuildingHeroProcessor>();
             _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess, buildingData.GetBuildingType, buildingData.GetBuildingGoldPerProcess);
+
+            _UIBuildingController.Initialization(buildingData);
         }
 
         private bool IsUnlockBuilding(FeatureInGameManager featureInGameManager, EBuildingType buildingType) 
@@ -58,5 +87,7 @@ namespace Buildings
                     break;
             }
         }
+
+
     }
 }

@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b9a8fe9f5d3f246b9014b809eeae97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _UIBuildingController: {fileID: 4151313979175650722}
 --- !u!114 &4366161907116125239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +218,7 @@ GameObject:
   - component: {fileID: 8218875121767778516}
   - component: {fileID: 1536063520587970530}
   - component: {fileID: 4172808182928240686}
+  - component: {fileID: 4151313979175650722}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -308,6 +310,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4151313979175650722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676440700285219108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c02b32dfc323b84f87604923b3ce24f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6133656774901082507
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +526,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4113063111812594684}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4151313979175650722}
+        m_TargetAssemblyTypeName: UI.UIBuildingController, Assembly-CSharp
+        m_MethodName: TryToBuyBuilding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7683334216570043568
 GameObject:
   m_ObjectHideFlags: 0

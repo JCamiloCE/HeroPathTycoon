@@ -40,7 +40,7 @@ namespace UI
             }
         }
 
-        private IEnumerator EffectCurrencyChange(float newValue) 
+        private IEnumerator EffectCurrencyChange(int newValue) 
         {
             float duration = 0.2f;
             float currentTime = 0f;
@@ -57,6 +57,7 @@ namespace UI
             }
 
             _textCurrency.fontSize = _bigSize;
+            _temporalNewValue = newValue;
             _textCurrency.text = $"${_temporalNewValue}";
             yield return new WaitForSeconds(0.2f);
             currentTime = 0f;
