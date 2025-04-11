@@ -2,6 +2,7 @@ using EvenSystemCore;
 using GameplayEvents;
 using System.Collections.Generic;
 using UnityEngine;
+using Enums;
 
 namespace GeneralManagers
 {
@@ -24,7 +25,7 @@ namespace GeneralManagers
         {
             switch (event_data.buildingType)
             {
-                case Buildings.EBuildingType.Archery:
+                case EBuildingType.Archery:
                     _featureInGame[EFeatureInGame.FeatureBuildingArcher] = true;
                     EventManager.TriggerEvent<UnlockFeatureEvent>(EFeatureInGame.FeatureBuildingArcher);
                     break;

@@ -13,7 +13,6 @@ namespace UI
         [SerializeField] private float _bigSize = 120;
 
         private Coroutine _effectCurrencyChange = null;
-        private int _newValue = 0;
         private int _temporalNewValue = 0;
 
         private void Awake()

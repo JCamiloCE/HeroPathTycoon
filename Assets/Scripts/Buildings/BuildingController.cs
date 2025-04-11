@@ -4,6 +4,7 @@ using UnityEngine;
 using UI;
 using EvenSystemCore;
 using GameplayEvents;
+using Enums;
 
 namespace Buildings
 {
@@ -84,7 +85,6 @@ namespace Buildings
                 default:
                     Debug.LogError("Unsuppor Building type: " + buildingType);
                     return false;
-                    break;
             }
         }
 
