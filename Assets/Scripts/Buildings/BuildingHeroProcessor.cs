@@ -117,15 +117,7 @@ namespace Buildings
         private void EvolveHero() 
         {
             _currentHero.StartFadeIn(1f, overrideFade: true);
-            switch (_buildingType)
-            {
-                case EBuildingType.Archery:
-                    _currentHero.EvolveHero(EHeroFamily.Archer);
-                    break;
-                case EBuildingType.Barracks:
-                    _currentHero.EvolveHero(EHeroFamily.Warrior);
-                    break;
-            }
+            _currentHero.EvolveHero(EnumConverter.GetHeroFamilyByBuilding(_buildingType));
             _currentHero.CallNextStepInHeroPath();
         }
     }

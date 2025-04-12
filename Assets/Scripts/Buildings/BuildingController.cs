@@ -12,7 +12,7 @@ namespace Buildings
     {
         [SerializeField] private UIBuildingController _UIBuildingController;
 
-        private BuildingHeroProcessor _heroProcessor = null;
+        private BuildingHeroProcessor _buildingHeroProcessor = null;
         private BuildingArt _buildingArt = null;
         private EBuildingType _buildingType;
         private bool _wasInitialized = false;
@@ -33,25 +33,14 @@ namespace Buildings
 
         internal void AddHeroToQueue(HeroController heroController)
         {
-            _heroProcessor.AddHeroToQueue(heroController);
+            _buildingHeroProcessor.AddHeroToQueue(heroController);
         }
 
         void IEventListener<UnlockFeatureEvent>.OnEvent(UnlockFeatureEvent event_data)
         {
-            switch (event_data.featureInGame)
+            if (_buildingType == EnumConverter.GetBuildingByFeature(event_data.featureInGame))
             {
-                case EFeatureInGame.FeatureBuildingArcher:
-                    if (_buildingType == EBuildingType.Archery)
-                    {
-                        _buildingArt.UnlockBuilding();
-                    }
-                    break;
-                case EFeatureInGame.FeatureBuildingBarracks:
-                    if (_buildingType == EBuildingType.Barracks)
-                    {
-                        _buildingArt.UnlockBuilding();
-                    }
-                    break;
+                _buildingArt.UnlockBuilding();
             }
         }
 
@@ -60,34 +49,13 @@ namespace Buildings
             transform.position = mapManager.GetPositionForArt(buildingData.GetBuildingType); 
             
             _buildingArt = GetComponent<BuildingArt>();
-            bool isBuildingUnlock = IsUnlockBuilding(featureInGameManager, buildingData.GetBuildingType);
+            bool isBuildingUnlock = featureInGameManager.IsFeatureUnlock(EnumConverter.GetFeatureByBuilding(buildingData.GetBuildingType));
             _buildingArt.Initialization(buildingData.GetBuildingInitialSprite, isBuildingUnlock);
 
-            _heroProcessor = GetComponent<BuildingHeroProcessor>();
-            _heroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess, buildingData.GetBuildingType, buildingData.GetBuildingGoldPerProcess);
+            _buildingHeroProcessor = GetComponent<BuildingHeroProcessor>();
+            _buildingHeroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess, buildingData.GetBuildingType, buildingData.GetBuildingGoldPerProcess);
 
             _UIBuildingController.Initialization(buildingData);
         }
-
-        private bool IsUnlockBuilding(FeatureInGameManager featureInGameManager, EBuildingType buildingType) 
-        {
-            switch (buildingType)
-            {
-                case EBuildingType.Archery:
-                    return featureInGameManager.IsFeatureUnlock(EFeatureInGame.FeatureBuildingArcher);
-                case EBuildingType.Barracks:
-                    return featureInGameManager.IsFeatureUnlock(EFeatureInGame.FeatureBuildingBarracks);
-                case EBuildingType.Lobby:
-                    return featureInGameManager.IsFeatureUnlock(EFeatureInGame.FeatureBuildingLobby);
-
-                case EBuildingType.Invalid:
-                case EBuildingType.None:
-                default:
-                    Debug.LogError("Unsuppor Building type: " + buildingType);
-                    return false;
-            }
-        }
-
-
     }
 }
