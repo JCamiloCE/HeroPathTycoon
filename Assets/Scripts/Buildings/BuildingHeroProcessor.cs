@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EvenSystemCore;
-using GameplayEvents;
+using HeroPath.Scripts.GameplayEvents;
 using HeroPath.Scripts.Enums;
 
 namespace HeroPath.Scripts.Buildings

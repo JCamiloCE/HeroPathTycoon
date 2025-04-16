@@ -1,5 +1,5 @@
 using EvenSystemCore;
-using GameplayEvents;
+using HeroPath.Scripts.GameplayEvents;
 using GeneralManagers;
 using UnityEngine;
 using Utils.Pool;

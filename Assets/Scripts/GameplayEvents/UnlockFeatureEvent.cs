@@ -1,7 +1,7 @@
 using EvenSystemCore;
 using HeroPath.Scripts.Enums;
 
-namespace GameplayEvents
+namespace HeroPath.Scripts.GameplayEvents
 {
     public class UnlockFeatureEvent : EventBase
     {

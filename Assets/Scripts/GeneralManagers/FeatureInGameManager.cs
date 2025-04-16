@@ -1,5 +1,5 @@
 using EvenSystemCore;
-using GameplayEvents;
+using HeroPath.Scripts.GameplayEvents;
 using System.Collections.Generic;
 using UnityEngine;
 using HeroPath.Scripts.Enums;

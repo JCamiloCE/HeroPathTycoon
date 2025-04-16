@@ -1,9 +1,8 @@
 using HeroPath.Scripts.Enums;
 using EvenSystemCore;
 
-namespace GameplayEvents
+namespace HeroPath.Scripts.GameplayEvents
 {
-
     public class UserCurrencyUIChangeEvent : EventBase
     {
         public ECurrency currencyChanged;

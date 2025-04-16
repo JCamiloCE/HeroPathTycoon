@@ -2,7 +2,7 @@ using HeroPath.Scripts.Enums;
 using EvenSystemCore;
 using Heros;
 
-namespace GameplayEvents 
+namespace HeroPath.Scripts.GameplayEvents 
 {
     public class StartProcessForHeroEvent : EventBase
     {

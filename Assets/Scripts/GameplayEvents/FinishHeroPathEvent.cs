@@ -1,7 +1,7 @@
 using EvenSystemCore;
 using Heros;
 
-namespace GameplayEvents
+namespace HeroPath.Scripts.GameplayEvents
 {
     public class FinishHeroPathEvent : EventBase
     {
