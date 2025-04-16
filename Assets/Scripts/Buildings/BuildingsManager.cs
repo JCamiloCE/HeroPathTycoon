@@ -1,6 +1,6 @@
 using EvenSystemCore;
 using HeroPath.Scripts.GameplayEvents;
-using GeneralManagers;
+using HeroPath.Scripts.GeneralManagers;
 using System.Collections.Generic;
 using UnityEngine;
 using HeroPath.Scripts.Enums;

@@ -1,5 +1,5 @@
 using Heros;
-using GeneralManagers;
+using HeroPath.Scripts.GeneralManagers;
 using UnityEngine;
 using UI;
 using EvenSystemCore;

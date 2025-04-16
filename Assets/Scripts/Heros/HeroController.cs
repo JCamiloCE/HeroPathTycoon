@@ -1,7 +1,7 @@
 using HeroPath.Scripts.Enums;
 using EvenSystemCore;
 using HeroPath.Scripts.GameplayEvents;
-using GeneralManagers;
+using HeroPath.Scripts.GeneralManagers;
 using System;
 using UnityEngine;
 using Utils.Random;

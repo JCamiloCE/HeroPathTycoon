@@ -1,5 +1,5 @@
 using HeroPath.Scripts.Enums;
-using GeneralManagers;
+using HeroPath.Scripts.GeneralManagers;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils.Pool;

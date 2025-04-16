@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils.Random;
 
-namespace GeneralManagers 
+namespace HeroPath.Scripts.GeneralManagers 
 {
     public class MapManager : MonoBehaviour
     {
@@ -60,6 +60,17 @@ namespace GeneralManagers
             return positions.GetPositionToStartQueue();
         }
 
+        public Vector3 GetPositionToFinishTraining() 
+        {
+            return _positionToFinishTraining.position;
+        } 
+
+        public Vector3 SelectHeroSpawnPoint()
+        {
+            int random_index = _random.GetRandomIndexInList(_spawnPointsHero);
+            return _spawnPointsHero[random_index].position;
+        }
+
         private void Awake()
         {
             _random = new RandomUnity();
@@ -74,15 +85,6 @@ namespace GeneralManagers
                 return new PositionPerBuilding(_positionToFinishTraining);
             }
             return _positionsWithKey[index].GetPositionPerBuilding();
-        }
-
-
-        public Vector3 GetPositionToFinishTraining() => _positionToFinishTraining.position;
-
-        public Vector3 SelectHeroSpawnPoint()
-        {
-            int random_index = _random.GetRandomIndexInList(_spawnPointsHero);
-            return _spawnPointsHero[random_index].position;
         }
     }
 }

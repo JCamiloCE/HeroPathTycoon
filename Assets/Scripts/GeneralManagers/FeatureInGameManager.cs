@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using HeroPath.Scripts.Enums;
 
-namespace GeneralManagers
+namespace HeroPath.Scripts.GeneralManagers
 {
     public class FeatureInGameManager : MonoBehaviour, IEventListener<BuildingPurchasedEvent>
     {

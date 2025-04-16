@@ -1,5 +1,5 @@
 using Heros;
-using GeneralManagers;
+using HeroPath.Scripts.GeneralManagers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
