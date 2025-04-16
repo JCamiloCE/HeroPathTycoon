@@ -1,4 +1,4 @@
-using Enums;
+using HeroPath.Scripts.Enums;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils.Random;

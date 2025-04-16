@@ -3,6 +3,7 @@ using GameplayEvents;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using HeroPath.Scripts.Enums;
 
 namespace UI 
 {
@@ -23,7 +24,7 @@ namespace UI
 
         void IEventListener<UserCurrencyUIChangeEvent>.OnEvent(UserCurrencyUIChangeEvent event_data)
         {
-            if (event_data.currencyChanged == Enums.ECurrency.Soft) 
+            if (event_data.currencyChanged == ECurrency.Soft) 
             {
                 StopEffect();
                 _effectCurrencyChange = StartCoroutine(EffectCurrencyChange(event_data.newValue));

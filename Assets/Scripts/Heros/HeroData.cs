@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using Enums;
+using HeroPath.Scripts.Enums;
 
 namespace Heros
 {

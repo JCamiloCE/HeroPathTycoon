@@ -1,4 +1,4 @@
-namespace Enums
+namespace HeroPath.Scripts.Enums
 
 {
     //Each component of the enum need a identification

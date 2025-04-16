@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Enums
+namespace HeroPath.Scripts.Enums
 {
     public static class EnumConverter
     {

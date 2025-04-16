@@ -4,7 +4,7 @@ using UnityEngine;
 using UI;
 using EvenSystemCore;
 using GameplayEvents;
-using Enums;
+using HeroPath.Scripts.Enums;
 
 namespace HeroPath.Scripts.Buildings
 {

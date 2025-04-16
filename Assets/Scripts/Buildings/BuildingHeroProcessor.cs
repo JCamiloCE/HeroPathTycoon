@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EvenSystemCore;
 using GameplayEvents;
-using Enums;
+using HeroPath.Scripts.Enums;
 
 namespace HeroPath.Scripts.Buildings
 {

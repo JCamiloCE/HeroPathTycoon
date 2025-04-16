@@ -1,4 +1,4 @@
-using Enums;
+using HeroPath.Scripts.Enums;
 using EvenSystemCore;
 using Heros;
 
