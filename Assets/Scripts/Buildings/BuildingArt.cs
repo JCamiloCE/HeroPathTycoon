@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Buildings
+namespace HeroPath.Scripts.Buildings
 {
     public class BuildingArt : MonoBehaviour, ILifeCycle
     {

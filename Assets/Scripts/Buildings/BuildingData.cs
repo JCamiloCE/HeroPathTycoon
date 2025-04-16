@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Enums;
 
-namespace Buildings
+namespace HeroPath.Scripts.Buildings
 {
     [Serializable]
     public class BuildingData

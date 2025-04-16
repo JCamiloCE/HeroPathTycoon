@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Enums;
 
-namespace Buildings 
+namespace HeroPath.Scripts.Buildings 
 {
     public class BuildingsManager : MonoBehaviour, IEventListener<StartProcessForHeroEvent>
     {
@@ -15,6 +15,11 @@ namespace Buildings
 
         private BuildingsDataScriptableObject _buildingsDataScriptableObject = null;
         private Dictionary<EBuildingType, BuildingController> _buildings;
+
+        void IEventListener<StartProcessForHeroEvent>.OnEvent(StartProcessForHeroEvent event_data)
+        {
+            _buildings[event_data.buildingType].AddHeroToQueue(event_data.heroController);
+        }
 
         private void Awake()
         {
@@ -41,11 +46,5 @@ namespace Buildings
             buildingController.Initialization(data, _mapManager, _featureInGameManager);
             _buildings.Add(buildingType, buildingController);
         }
-
-        void IEventListener<StartProcessForHeroEvent>.OnEvent(StartProcessForHeroEvent event_data)
-        {
-            _buildings[event_data.buildingType].AddHeroToQueue(event_data.heroController);
-        }
     }
 }
-

@@ -6,7 +6,7 @@ using EvenSystemCore;
 using GameplayEvents;
 using Enums;
 
-namespace Buildings
+namespace HeroPath.Scripts.Buildings
 {
     public class BuildingController : MonoBehaviour, ILifeCycle, IEventListener<UnlockFeatureEvent>
     {
@@ -46,16 +46,23 @@ namespace Buildings
 
         private void CreateBuilding(MapManager mapManager, BuildingData buildingData, FeatureInGameManager featureInGameManager)
         {
-            transform.position = mapManager.GetPositionForArt(buildingData.GetBuildingType); 
-            
+            transform.position = mapManager.GetPositionForArt(buildingData.GetBuildingType);
+            CreateBuildingArt(buildingData, featureInGameManager);
+            CreateBuildingHeroProcessor(mapManager, buildingData);
+            _UIBuildingController.Initialization(buildingData.GetBuildingType, buildingData.GetBuildingPrice);
+        }
+
+        private void CreateBuildingArt(BuildingData buildingData, FeatureInGameManager featureInGameManager) 
+        {
             _buildingArt = GetComponent<BuildingArt>();
             bool isBuildingUnlock = featureInGameManager.IsFeatureUnlock(EnumConverter.GetFeatureByBuilding(buildingData.GetBuildingType));
             _buildingArt.Initialization(buildingData.GetBuildingInitialSprite, isBuildingUnlock);
+        }
 
+        private void CreateBuildingHeroProcessor(MapManager mapManager, BuildingData buildingData)
+        {
             _buildingHeroProcessor = GetComponent<BuildingHeroProcessor>();
-            _buildingHeroProcessor.Initialization(mapManager, _buildingArt, buildingData.GetBuildingTimeToProcess, buildingData.GetBuildingType, buildingData.GetBuildingGoldPerProcess);
-
-            _UIBuildingController.Initialization(buildingData);
+            _buildingHeroProcessor.Initialization(mapManager, _buildingArt, buildingData);
         }
     }
 }

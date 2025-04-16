@@ -1,4 +1,3 @@
-using Buildings;
 using Enums;
 using EvenSystemCore;
 using GameplayEvents;
@@ -18,9 +17,8 @@ namespace UI
 
         public bool Initialization(params object[] parameters)
         {
-            BuildingData buildingData = parameters[0] as BuildingData;
-            _buildingType = buildingData.GetBuildingType;
-            _buildingPrice = buildingData.GetBuildingPrice;
+            _buildingType = (EBuildingType)parameters[0];
+            _buildingPrice = (int)parameters[1];
             return true;
         }
 
@@ -28,7 +26,5 @@ namespace UI
         {
             EventManager.TriggerEvent<TryToBuyBuildingEvent>(_buildingType, _buildingPrice, ECurrency.Soft);
         }
-
-        
     }
 }

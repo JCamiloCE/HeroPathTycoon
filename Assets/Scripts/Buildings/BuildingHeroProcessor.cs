@@ -7,13 +7,12 @@ using EvenSystemCore;
 using GameplayEvents;
 using Enums;
 
-namespace Buildings
+namespace HeroPath.Scripts.Buildings
 {
     public class BuildingHeroProcessor : MonoBehaviour, ILifeCycle
     {
         private List<HeroController> _heroControllers = null;
         private HeroController _currentHero = null; //This is temporal the idea is the building doesn't contains Hero reference
-        private Coroutine _moveQueueCoroutine = null;
         private Coroutine _heroProcessorCoroutine = null;
         private MapManager _mapManager = null;
         private BuildingArt _buildingArt = null;
@@ -28,9 +27,10 @@ namespace Buildings
         {
             _mapManager = parameters[0] as MapManager;
             _buildingArt = parameters[1] as BuildingArt;
-            _timeToProcess = (float)parameters[2];
-            _buildingType = (EBuildingType)parameters[3];
-            _currencyPerProcess = (int)parameters[4];
+            BuildingData buildingData = parameters[2] as BuildingData;
+            _timeToProcess = buildingData.GetBuildingTimeToProcess;
+            _buildingType = buildingData.GetBuildingType;
+            _currencyPerProcess = buildingData.GetBuildingGoldPerProcess;
             _heroControllers = new ();
             _wasInitialized = true;
             return _wasInitialized;
@@ -39,17 +39,6 @@ namespace Buildings
         internal void AddHeroToQueue(HeroController heroController)
         {
             _heroControllers.Add(heroController);
-            RunMoveQueue();
-        }
-
-        private void RunMoveQueue() 
-        {
-            if (_moveQueueCoroutine != null)
-            {
-                StopCoroutine(_moveQueueCoroutine);
-                _moveQueueCoroutine = null;
-            }
-
             SetNewPositionForQueue(_currentHero != null);
         }
 
@@ -109,7 +98,7 @@ namespace Buildings
                 EvolveHero();
                 _currentHero = null;
             }
-            RunMoveQueue();
+            SetNewPositionForQueue(_currentHero != null);
             EventManager.TriggerEvent<UserCurrencyChangeEvent>(ECurrency.Soft, _currencyPerProcess);
             _heroProcessorCoroutine = null;
         }
