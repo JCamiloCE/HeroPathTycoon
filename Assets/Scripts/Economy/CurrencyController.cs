@@ -4,7 +4,7 @@ using GameplayEvents;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Economy 
+namespace HeroPath.Scripts.Economy 
 {
     public class CurrencyController : MonoBehaviour, IEventListener<UserCurrencyChangeEvent>,
                                                      IEventListener<TryToBuyBuildingEvent>
@@ -18,7 +18,11 @@ namespace Economy
             {
                 { ECurrency.Soft, 0 }
             };
+            AddListeners();
+        }
 
+        private void AddListeners() 
+        {
             EventManager.AddListener<UserCurrencyChangeEvent>(this);
             EventManager.AddListener<TryToBuyBuildingEvent>(this);
         }
