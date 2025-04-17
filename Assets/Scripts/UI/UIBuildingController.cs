@@ -1,8 +1,8 @@
 using HeroPath.Scripts.Enums;
-using JCC.Utils.GameplayEventSystem;
 using HeroPath.Scripts.GameplayEvents;
-using UnityEngine;
+using JCC.Utils.GameplayEventSystem;
 using JCC.Utils.LifeCycle;
+using UnityEngine;
 
 namespace HeroPath.Scripts.UI
 {

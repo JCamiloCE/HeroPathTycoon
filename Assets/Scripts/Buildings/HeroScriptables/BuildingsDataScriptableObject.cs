@@ -1,6 +1,6 @@
+using HeroPath.Scripts.Enums;
 using System.Collections.Generic;
 using UnityEngine;
-using HeroPath.Scripts.Enums;
 
 namespace HeroPath.Scripts.Buildings
 {

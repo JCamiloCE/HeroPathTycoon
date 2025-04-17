@@ -1,9 +1,9 @@
 using JCC.Utils.GameplayEventSystem;
 using HeroPath.Scripts.GameplayEvents;
+using HeroPath.Scripts.Enums;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using HeroPath.Scripts.Enums;
 
 namespace HeroPath.Scripts.UI 
 {

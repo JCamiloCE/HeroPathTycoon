@@ -1,6 +1,6 @@
-using UnityEngine;
 using JCC.Utils.Art;
 using JCC.Utils.LifeCycle;
+using UnityEngine;
 
 namespace HeroPath.Scripts.Heros
 {

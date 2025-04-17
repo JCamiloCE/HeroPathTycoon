@@ -1,6 +1,6 @@
 using HeroPath.Scripts.Enums;
-using JCC.Utils.GameplayEventSystem;
 using HeroPath.Scripts.Heros;
+using JCC.Utils.GameplayEventSystem;
 
 namespace HeroPath.Scripts.GameplayEvents 
 {

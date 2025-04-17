@@ -1,9 +1,9 @@
 using JCC.Utils.GameplayEventSystem;
 using HeroPath.Scripts.GameplayEvents;
 using HeroPath.Scripts.GeneralManagers;
+using HeroPath.Scripts.Enums;
 using System.Collections.Generic;
 using UnityEngine;
-using HeroPath.Scripts.Enums;
 
 namespace HeroPath.Scripts.Buildings 
 {
