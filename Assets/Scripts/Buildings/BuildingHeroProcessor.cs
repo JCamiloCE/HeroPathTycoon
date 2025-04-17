@@ -65,7 +65,7 @@ namespace HeroPath.Scripts.Buildings
 
         private Vector3 GetPositionByIndex(int index) 
         {
-            Vector3 newPosition = _mapManager.GetPositionToStartQueue(_buildingType);
+            Vector3 newPosition = _mapManager.GetPositionByBuilding(_buildingType, EMapTypePosition.ToStartQueue);
             newPosition.y -= (index * 2);
             return newPosition;
         }

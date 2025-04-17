@@ -63,7 +63,7 @@ namespace Heros
                 return _mapManager.GetPositionToFinishTraining();
             }
 
-            return _mapManager.GetPositionToWait(_heroPath[_currentIndex]);
+            return _mapManager.GetPositionByBuilding(_heroPath[_currentIndex], EMapTypePosition.ToWait);
         }
 
         private EBuildingType GetFirstLevelOfPath()

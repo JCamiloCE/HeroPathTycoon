@@ -46,7 +46,7 @@ namespace HeroPath.Scripts.Buildings
 
         private void CreateBuilding(MapManager mapManager, BuildingData buildingData, FeatureInGameManager featureInGameManager)
         {
-            transform.position = mapManager.GetPositionForArt(buildingData.GetBuildingType);
+            transform.position = mapManager.GetPositionByBuilding(buildingData.GetBuildingType, EMapTypePosition.ForArt);
             CreateBuildingArt(buildingData, featureInGameManager);
             CreateBuildingHeroProcessor(mapManager, buildingData);
             _UIBuildingController.Initialization(buildingData.GetBuildingType, buildingData.GetBuildingPrice);

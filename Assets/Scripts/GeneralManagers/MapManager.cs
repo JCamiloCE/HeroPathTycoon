@@ -42,33 +42,28 @@ namespace HeroPath.Scripts.GeneralManagers
 
         private IRandom _random;
 
-        public Vector3 GetPositionForArt(EBuildingType buildingType) 
-        {
-            var positions = GetPositionPerBuilding(buildingType);
-            return positions.GetPositionForArt();
-        }
-
-        public Vector3 GetPositionToWait(EBuildingType buildingType)
-        {
-            var positions = GetPositionPerBuilding(buildingType);
-            return positions.GetPositionToWait();
-        }
-
-        public Vector3 GetPositionToStartQueue(EBuildingType buildingType)
-        {
-            var positions = GetPositionPerBuilding(buildingType);
-            return positions.GetPositionToStartQueue();
-        }
-
-        public Vector3 GetPositionToFinishTraining() 
-        {
-            return _positionToFinishTraining.position;
-        } 
+        public Vector3 GetPositionToFinishTraining() => _positionToFinishTraining.position;
 
         public Vector3 SelectHeroSpawnPoint()
         {
             int random_index = _random.GetRandomIndexInList(_spawnPointsHero);
             return _spawnPointsHero[random_index].position;
+        }
+
+        public Vector3 GetPositionByBuilding(EBuildingType buildingType, EMapTypePosition mapTypePos)
+        {
+            var positions = GetPositionPerBuilding(buildingType);
+            switch (mapTypePos)
+            {
+                case EMapTypePosition.ForArt:
+                    return positions.GetPositionForArt();
+                case EMapTypePosition.ToWait:
+                    return positions.GetPositionToWait();
+                case EMapTypePosition.ToStartQueue:
+                    return positions.GetPositionToStartQueue();
+            }
+            Debug.LogError("Unsupport Type of position");
+            return _positionToFinishTraining.position;
         }
 
         private void Awake()
