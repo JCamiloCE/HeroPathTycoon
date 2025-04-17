@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Pool 
+namespace JCC.Utils.Pool 
 { 
     public class PoolControllerImpl<TType> : IPoolController<TType> where TType : MonoBehaviour
     {

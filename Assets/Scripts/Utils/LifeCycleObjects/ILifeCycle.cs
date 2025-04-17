@@ -1,5 +1,9 @@
-interface ILifeCycle
+namespace JCC.Utils.LifeCycle
 {
-    public bool Initialization(params object[] parameters);
-    public bool WasInitialized();
+    interface ILifeCycle
+    {
+        public bool Initialization(params object[] parameters);
+        public bool WasInitialized();
+    }
 }
+

@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using System;
 using UnityEngine;
-using Utils.Pool;
+using JCC.Utils.Pool;
 
 namespace UnitTests.EditModeTests.Utils.Pool
 {

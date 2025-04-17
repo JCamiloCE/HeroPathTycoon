@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Utils.Random
+namespace JCC.Utils.Random
 {
     public interface IRandom
     {

@@ -2,9 +2,10 @@ using HeroPath.Scripts.Heros;
 using HeroPath.Scripts.GeneralManagers;
 using UnityEngine;
 using HeroPath.Scripts.UI;
-using EvenSystemCore;
+using JCC.Utils.GameplayEventSystem;
 using HeroPath.Scripts.GameplayEvents;
 using HeroPath.Scripts.Enums;
+using JCC.Utils.LifeCycle;
 
 namespace HeroPath.Scripts.Buildings
 {

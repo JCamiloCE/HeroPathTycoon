@@ -1,5 +1,5 @@
 {
-    "name": "Utils.EventSystemCore",
+    "name": "JCC.Utils.GameplayEventSystem",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [],

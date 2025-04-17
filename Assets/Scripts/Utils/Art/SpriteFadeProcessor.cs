@@ -1,7 +1,8 @@
+using JCC.Utils.LifeCycle;
 using System.Collections;
 using UnityEngine;
 
-namespace Utils.Art
+namespace JCC.Utils.Art
 {
     public class SpriteFadeProcessor : MonoBehaviour, ILifeCycle
     {

@@ -1,9 +1,10 @@
 using HeroPath.Scripts.Enums;
 using HeroPath.Scripts.GeneralManagers;
+using JCC.Utils.LifeCycle;
 using System.Collections.Generic;
 using UnityEngine;
-using Utils.Pool;
-using Utils.Random;
+using JCC.Utils.Pool;
+using JCC.Utils.Random;
 
 namespace HeroPath.Scripts.Heros
 {

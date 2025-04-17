@@ -1,7 +1,8 @@
+using JCC.Utils.LifeCycle;
 using System;
 using System.Collections;
 using UnityEngine;
-using Utils.Random;
+using JCC.Utils.Random;
 
 namespace HeroPath.Scripts.Heros
 {

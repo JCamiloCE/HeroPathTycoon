@@ -1,4 +1,4 @@
-namespace EvenSystemCore
+namespace JCC.Utils.GameplayEventSystem
 {
     public interface IEventListener<in TEvent>: IEventListenerBase where TEvent : EventBase
     {

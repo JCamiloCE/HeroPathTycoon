@@ -1,10 +1,11 @@
 using HeroPath.Scripts.Enums;
-using EvenSystemCore;
+using JCC.Utils.GameplayEventSystem;
 using HeroPath.Scripts.GameplayEvents;
 using HeroPath.Scripts.GeneralManagers;
 using System;
 using UnityEngine;
-using Utils.Random;
+using JCC.Utils.Random;
+using JCC.Utils.LifeCycle;
 
 namespace HeroPath.Scripts.Heros
 {

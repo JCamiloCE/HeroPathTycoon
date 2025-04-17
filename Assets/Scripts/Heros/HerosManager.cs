@@ -1,9 +1,9 @@
-using EvenSystemCore;
+using JCC.Utils.GameplayEventSystem;
 using HeroPath.Scripts.GameplayEvents;
 using HeroPath.Scripts.GeneralManagers;
 using UnityEngine;
-using Utils.Pool;
-using Utils.Random;
+using JCC.Utils.Pool;
+using JCC.Utils.Random;
 using HeroPath.Scripts.Enums;
 
 namespace HeroPath.Scripts.Heros

@@ -1,4 +1,4 @@
-using EvenSystemCore;
+using JCC.Utils.GameplayEventSystem;
 using HeroPath.Scripts.Enums;
 
 namespace HeroPath.Scripts.GameplayEvents

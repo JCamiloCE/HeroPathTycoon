@@ -1,4 +1,4 @@
-using EvenSystemCore;
+using JCC.Utils.GameplayEventSystem;
 using HeroPath.Scripts.GameplayEvents;
 using HeroPath.Scripts.GeneralManagers;
 using System.Collections.Generic;

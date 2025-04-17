@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace Utils.Random
+namespace JCC.Utils.Random
 {
     public class RandomUnity : IRandom
     {

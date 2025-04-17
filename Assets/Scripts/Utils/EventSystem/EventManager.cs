@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EvenSystemCore
+namespace JCC.Utils.GameplayEventSystem
 {
     public static class EventManager
     {

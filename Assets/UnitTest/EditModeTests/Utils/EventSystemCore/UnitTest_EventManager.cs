@@ -1,4 +1,4 @@
-using EvenSystemCore;
+using JCC.Utils.GameplayEventSystem;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

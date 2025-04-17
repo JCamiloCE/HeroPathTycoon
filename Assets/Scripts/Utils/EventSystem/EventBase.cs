@@ -1,4 +1,4 @@
-namespace EvenSystemCore
+namespace JCC.Utils.GameplayEventSystem
 {
     public abstract class EventBase 
     {

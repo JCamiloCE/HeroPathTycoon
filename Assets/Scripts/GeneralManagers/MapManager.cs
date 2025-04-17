@@ -1,7 +1,7 @@
 using HeroPath.Scripts.Enums;
 using System.Collections.Generic;
 using UnityEngine;
-using Utils.Random;
+using JCC.Utils.Random;
 
 namespace HeroPath.Scripts.GeneralManagers 
 {

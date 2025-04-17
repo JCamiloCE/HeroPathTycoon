@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Utils.Random;
+using JCC.Utils.Random;
 
 namespace UnitTests.EditModeTests.Utils.Random
 { 

@@ -1,5 +1,5 @@
 using HeroPath.Scripts.Enums;
-using EvenSystemCore;
+using JCC.Utils.GameplayEventSystem;
 
 namespace HeroPath.Scripts.GameplayEvents 
 {

@@ -1,4 +1,4 @@
-namespace Utils.Pool
+namespace JCC.Utils.Pool
 {
     public interface IPoolResettable
     {

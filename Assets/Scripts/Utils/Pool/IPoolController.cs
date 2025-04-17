@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utils.Pool
+namespace JCC.Utils.Pool
 {
     public interface IPoolController<TType> where TType : MonoBehaviour
     {

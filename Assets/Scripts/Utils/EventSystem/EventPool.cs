@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace EvenSystemCore
+namespace JCC.Utils.GameplayEventSystem
 {
     public class EventPool 
     {

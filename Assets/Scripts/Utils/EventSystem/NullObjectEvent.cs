@@ -1,4 +1,4 @@
-namespace EvenSystemCore
+namespace JCC.Utils.GameplayEventSystem
 {
     internal class NullObjectEvent : EventBase
     {
