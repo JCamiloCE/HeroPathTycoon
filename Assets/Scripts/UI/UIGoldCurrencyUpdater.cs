@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using HeroPath.Scripts.Enums;
 
-namespace UI 
+namespace HeroPath.Scripts.UI 
 {
     public class UIGoldCurrencyUpdater : MonoBehaviour, IEventListener<UserCurrencyUIChangeEvent>
     {

@@ -1,7 +1,7 @@
 using HeroPath.Scripts.Heros;
 using HeroPath.Scripts.GeneralManagers;
 using UnityEngine;
-using UI;
+using HeroPath.Scripts.UI;
 using EvenSystemCore;
 using HeroPath.Scripts.GameplayEvents;
 using HeroPath.Scripts.Enums;

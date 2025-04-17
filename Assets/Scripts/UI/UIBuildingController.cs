@@ -3,7 +3,7 @@ using EvenSystemCore;
 using HeroPath.Scripts.GameplayEvents;
 using UnityEngine;
 
-namespace UI
+namespace HeroPath.Scripts.UI
 {
     public class UIBuildingController : MonoBehaviour, ILifeCycle
     {
