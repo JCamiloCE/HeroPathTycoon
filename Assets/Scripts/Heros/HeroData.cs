@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using HeroPath.Scripts.Enums;
 
-namespace Heros
+namespace HeroPath.Scripts.Heros
 {
     [Serializable]
     public class HeroData

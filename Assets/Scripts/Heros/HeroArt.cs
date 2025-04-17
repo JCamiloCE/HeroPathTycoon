@@ -1,7 +1,7 @@
 using UnityEngine;
 using Utils.Art;
 
-namespace Heros
+namespace HeroPath.Scripts.Heros
 {
     public class HeroArt : MonoBehaviour, ILifeCycle
     {

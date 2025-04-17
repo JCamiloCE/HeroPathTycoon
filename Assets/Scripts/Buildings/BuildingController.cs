@@ -1,4 +1,4 @@
-using Heros;
+using HeroPath.Scripts.Heros;
 using HeroPath.Scripts.GeneralManagers;
 using UnityEngine;
 using UI;

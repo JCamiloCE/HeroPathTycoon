@@ -1,6 +1,6 @@
 using HeroPath.Scripts.Enums;
 using EvenSystemCore;
-using Heros;
+using HeroPath.Scripts.Heros;
 
 namespace HeroPath.Scripts.GameplayEvents 
 {

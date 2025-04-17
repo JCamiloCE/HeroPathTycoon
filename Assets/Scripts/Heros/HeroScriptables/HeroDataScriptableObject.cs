@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using HeroPath.Scripts.Enums;
 
-namespace Heros
+namespace HeroPath.Scripts.Heros
 {
     [CreateAssetMenu(fileName = "HerosData", menuName = "ScriptableObjects/HerosDataScriptableObject", order = 0)]
     public class HeroDataScriptableObject : ScriptableObject

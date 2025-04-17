@@ -5,7 +5,7 @@ using UnityEngine;
 using Utils.Pool;
 using Utils.Random;
 
-namespace Heros
+namespace HeroPath.Scripts.Heros
 {
     public class HeroPath: ILifeCycle, IPoolResettable
     {

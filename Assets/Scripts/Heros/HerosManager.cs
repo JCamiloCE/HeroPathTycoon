@@ -6,7 +6,7 @@ using Utils.Pool;
 using Utils.Random;
 using HeroPath.Scripts.Enums;
 
-namespace Heros
+namespace HeroPath.Scripts.Heros
 {
     public class HerosManager : MonoBehaviour, IEventListener<FinishHeroPathEvent>
     {

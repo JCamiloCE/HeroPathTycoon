@@ -6,7 +6,7 @@ using System;
 using UnityEngine;
 using Utils.Random;
 
-namespace Heros
+namespace HeroPath.Scripts.Heros
 {
     public class HeroController : MonoBehaviour, ILifeCycle
     {

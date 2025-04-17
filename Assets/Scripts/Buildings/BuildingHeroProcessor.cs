@@ -1,4 +1,4 @@
-using Heros;
+using HeroPath.Scripts.Heros;
 using HeroPath.Scripts.GeneralManagers;
 using System.Collections;
 using System.Collections.Generic;

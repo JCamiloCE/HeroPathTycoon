@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Utils.Random;
 
-namespace Heros
+namespace HeroPath.Scripts.Heros
 {
     public class HeroMovement : MonoBehaviour, ILifeCycle
     {
