@@ -3,6 +3,7 @@ using HeroPath.Scripts.Enums;
 using HeroPath.Scripts.GameplayEvents;
 using System.Collections.Generic;
 using UnityEngine;
+using JCC.Utils.DebugManager;
 
 namespace HeroPath.Scripts.GeneralManagers
 {
@@ -17,7 +18,7 @@ namespace HeroPath.Scripts.GeneralManagers
                 return _featureInGame[feature];
             }
 
-            Debug.LogError("Feature not found: " + feature);
+            DebugManager.LogError("Feature not found: " + feature);
             return false;
         }
 
@@ -35,7 +36,7 @@ namespace HeroPath.Scripts.GeneralManagers
         private void Awake()
         {
             InitializeFeatures();
-
+            DebugManager.Initialization(new DebugUnityImpl(), EDebugScope.All);
             EventManager.AddListener(this);
         }
 

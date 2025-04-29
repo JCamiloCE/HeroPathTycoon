@@ -7,6 +7,7 @@ using HeroPath.Scripts.GeneralManagers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using JCC.Utils.DebugManager;
 
 namespace HeroPath.Scripts.Buildings
 {
@@ -86,7 +87,7 @@ namespace HeroPath.Scripts.Buildings
             }
             else 
             {
-                Debug.LogError("BuildingHeroProcessor.TryRunProcessor: try to process two heros at the same time");
+                DebugManager.LogError("BuildingHeroProcessor.TryRunProcessor: try to process two heros at the same time");
             }
         }
 

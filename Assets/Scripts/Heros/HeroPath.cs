@@ -1,5 +1,6 @@
 using HeroPath.Scripts.Enums;
 using HeroPath.Scripts.GeneralManagers;
+using JCC.Utils.DebugManager;
 using JCC.Utils.LifeCycle;
 using JCC.Utils.Pool;
 using JCC.Utils.Random;
@@ -52,7 +53,7 @@ namespace HeroPath.Scripts.Heros
             _currentIndex++;
             if (_currentIndex >= _heroPath.Count)
             {
-                Debug.Log("Index out of bounds when try to select a the next position");
+                DebugManager.LogError("Index out of bounds when try to select a the next position");
                 _currentIndex = _heroPath.Count - 1;
             }
         }

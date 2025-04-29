@@ -2,6 +2,7 @@ using JCC.Utils.Random;
 using HeroPath.Scripts.Enums;
 using System.Collections.Generic;
 using UnityEngine;
+using JCC.Utils.DebugManager;
 
 namespace HeroPath.Scripts.GeneralManagers 
 {
@@ -62,7 +63,7 @@ namespace HeroPath.Scripts.GeneralManagers
                 case EMapTypePosition.ToStartQueue:
                     return positions.GetPositionToStartQueue();
             }
-            Debug.LogError("Unsupport Type of position");
+            DebugManager.LogError("Unsupport Type of position");
             return _positionToFinishTraining.position;
         }
 
@@ -76,7 +77,7 @@ namespace HeroPath.Scripts.GeneralManagers
             int index = _positionsWithKey.FindIndex(x => x.GetBuildingTypeKey() == buildingType);
             if (index < 0)
             {
-                Debug.LogError("No found for buildingType: " + buildingType + " Setting as finish point");
+                DebugManager.LogError("No found for buildingType: " + buildingType + " Setting as finish point");
                 return new PositionPerBuilding(_positionToFinishTraining);
             }
             return _positionsWithKey[index].GetPositionPerBuilding();

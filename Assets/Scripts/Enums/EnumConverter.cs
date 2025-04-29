@@ -1,4 +1,4 @@
-using UnityEngine;
+using JCC.Utils.DebugManager;
 
 namespace HeroPath.Scripts.Enums
 {
@@ -18,7 +18,7 @@ namespace HeroPath.Scripts.Enums
                     return EBuildingType.Lobby;
             }
 
-            Debug.LogError("Unsuppor Feature type: " + feature);
+            DebugManager.LogError("Unsuppor Feature type: " + feature);
             return EBuildingType.Invalid;
         }
 
@@ -36,7 +36,7 @@ namespace HeroPath.Scripts.Enums
                     return EFeatureInGame.FeatureBuildingLobby;
             }
 
-            Debug.LogError("Unsuppor Building type: " + buildingType);
+            DebugManager.LogError("Unsuppor Building type: " + buildingType);
             return EFeatureInGame.Invalid;
         }
 
@@ -54,7 +54,7 @@ namespace HeroPath.Scripts.Enums
                     return EHeroFamily.Candidate;
             }
 
-            Debug.LogError("Unsuppor Building type: " + buildingType);
+            DebugManager.LogError("Unsuppor Building type: " + buildingType);
             return EHeroFamily.Invalid;
         }
     }
