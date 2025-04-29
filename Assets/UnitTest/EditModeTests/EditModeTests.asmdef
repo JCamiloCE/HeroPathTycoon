@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "Utils.Random",
         "Utils.Pool",
-        "JCC.Utils.GameplayEventSystem"
+        "JCC.Utils.GameplayEventSystem",
+        "JCC.Utils.DebugManager"
     ],
     "includePlatforms": [
         "Editor"
