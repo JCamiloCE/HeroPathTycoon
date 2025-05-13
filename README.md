@@ -1,29 +1,20 @@
-# README #
+<h1 align="center"> Hero Path Tycoon </h1>
+<h4 align="center">
+:construction: Project under development :construction:
+</h4>
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Description...
 
-### What is this repository for? ###
+<h4 align="center">
+:construction: Project under development :construction:
+</h4>
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+## :hammer: Project Features
 
-### How do I get set up? ###
+- `Feature - Name feature`: Description.
+- `Feature - Unit Tests`: Some of the code is supported by Unit Tests, using NUnit.
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+## :construction_worker: Next Steps
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+- `Unit Tests`: Add more Unit Tests for a good code average.
+- `Next Step name`: Description.
