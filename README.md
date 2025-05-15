@@ -1,4 +1,10 @@
 <h1 align="center"> Hero Path Tycoon </h1>
+
+<p align="center">
+  <img src="ReadmeFiles/Buy.gif" alt="Buy Demo"/>
+  <img src="ReadmeFiles/Demo.gif" alt="Project Demo"/>
+</p>
+
 <h4 align="center">
 :construction: Project under development :construction:
 </h4>

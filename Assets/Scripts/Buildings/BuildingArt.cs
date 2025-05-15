@@ -9,6 +9,8 @@ namespace HeroPath.Scripts.Buildings
     public class BuildingArt : MonoBehaviour, ILifeCycle
     {
         [SerializeField] private Image _loadProcess = null;
+        [SerializeField] private SpriteRenderer _mainBuildingArt = null;
+        [SerializeField] private SpriteRenderer _bannerBuildingArt = null;
         [SerializeField] private List<GameObject> _lockObjs = null;
         [SerializeField] private Color _lockColor = Color.white;
         private Coroutine _processCoroutine;
@@ -18,9 +20,10 @@ namespace HeroPath.Scripts.Buildings
 
         public bool Initialization(params object[] parameters)
         {
-            Sprite initialSprite = parameters[0] as Sprite;
-            bool isUnlock = (bool)parameters[1];
-            SetBuildingSprite(initialSprite, isUnlock);
+            Sprite mainSprite = parameters[0] as Sprite;
+            Sprite bannerSprite = parameters[1] as Sprite;
+            bool isUnlock = (bool)parameters[2];
+            SetBuildingSprite(mainSprite, bannerSprite, isUnlock);
             _loadProcess.fillAmount = 0;
             _wasInitialized = true;
             return _wasInitialized;
@@ -38,21 +41,22 @@ namespace HeroPath.Scripts.Buildings
 
         internal void UnlockBuilding() 
         {
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.color = Color.white;
+            _mainBuildingArt.color = Color.white;
+            _bannerBuildingArt.color = Color.white;
             foreach (var obj in _lockObjs)
             {
                 obj.SetActive(false);
             }
         }
 
-        private void SetBuildingSprite(Sprite initialSprite, bool isUnlock) 
+        private void SetBuildingSprite(Sprite initialSprite, Sprite bannerSprite, bool isUnlock) 
         {
-            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.sprite = initialSprite;
+            _mainBuildingArt.sprite = initialSprite;
+            _bannerBuildingArt.sprite = bannerSprite;
             if (!isUnlock) 
             {
-                spriteRenderer.color = _lockColor;
+                _mainBuildingArt.color = _lockColor;
+                _bannerBuildingArt.color = _lockColor;
                 foreach (var obj in _lockObjs) 
                 {
                     obj.SetActive(true);

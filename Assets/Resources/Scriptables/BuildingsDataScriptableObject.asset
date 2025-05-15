@@ -15,16 +15,19 @@ MonoBehaviour:
   buildingsDataScriptable:
   - _buildingType: 111401
     _initialSprite: {fileID: 21300000, guid: 998ac5c55a4b5844289e2cebe7480d9a, type: 3}
+    _bannerSprite: {fileID: 21300000, guid: 2a405d2c7fa4813418612122990472d1, type: 3}
     _timeToProcess: 1
     _goldPerProcess: 20
     _price: 0
   - _buildingType: 10017
     _initialSprite: {fileID: 21300000, guid: ae8cf53182b54c8408b82ff979e30af1, type: 3}
+    _bannerSprite: {fileID: 21300000, guid: fb19c8f5c98e97047a42355cc31ff0bc, type: 3}
     _timeToProcess: 2
     _goldPerProcess: 60
     _price: 0
   - _buildingType: 1702
-    _initialSprite: {fileID: 21300000, guid: ae8cf53182b54c8408b82ff979e30af1, type: 3}
+    _initialSprite: {fileID: 21300000, guid: 6044f83baebc6ca42ad21a9e10532392, type: 3}
+    _bannerSprite: {fileID: 21300000, guid: a87573aa6ed8c5f4ead5a14e8f824dab, type: 3}
     _timeToProcess: 3
     _goldPerProcess: 80
     _price: 100

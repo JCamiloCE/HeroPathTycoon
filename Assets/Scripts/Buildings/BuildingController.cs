@@ -57,7 +57,7 @@ namespace HeroPath.Scripts.Buildings
         {
             _buildingArt = GetComponent<BuildingArt>();
             bool isBuildingUnlock = featureInGameManager.IsFeatureUnlock(EnumConverter.GetFeatureByBuilding(buildingData.GetBuildingType));
-            _buildingArt.Initialization(buildingData.GetBuildingInitialSprite, isBuildingUnlock);
+            _buildingArt.Initialization(buildingData.GetBuildingInitialSprite, buildingData.GetBannerBuildingSprite, isBuildingUnlock);
         }
 
         private void CreateBuildingHeroProcessor(MapManager mapManager, BuildingData buildingData)
